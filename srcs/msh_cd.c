@@ -2,6 +2,14 @@
 #include "libft.h"
 #include <stdio.h>
 
+int			bi_exit(char **arg, char **env)
+{
+	(void)arg;
+	(void)env;
+	exit(EXIT_SUCCESS);
+	return (0);
+}
+
 int			bi_env(char **arg, char **env)
 {
 	printf("pouet\n");

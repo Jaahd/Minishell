@@ -15,5 +15,6 @@ int			display_prompt(char **env);
 
 /* builtin */
 int			bi_env(char **arg, char **env);
+int			bi_exit(char **arg, char **env);
 
 #endif

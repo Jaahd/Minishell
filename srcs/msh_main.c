@@ -102,7 +102,7 @@ int			handle_builtin(char **cmd, char **env)
 	while (i < 5 && ft_strcmp(cmd[0], builtin[i]) != 0)
 		i++;
 	if (i < 5 && ft_strcmp(cmd[0], builtin[i]) == 0)
-		bi_env(cmd, env);
+		bi_exit(cmd, env);
 	return (0);
 }
 
