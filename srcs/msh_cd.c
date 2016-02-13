@@ -2,6 +2,21 @@
 #include "libft.h"
 #include <stdio.h>
 
+int			bi_cd(char **arg, char **env)
+{
+	return (0);
+}
+
+int			bi_setenv(char **arg, char **env)
+{
+	return (0);
+}
+
+int			bi_unsetenv(char **arg, char **env)
+{
+	return (0);
+}
+
 int			bi_exit(char **arg, char **env)
 {
 	(void)arg;
