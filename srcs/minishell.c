@@ -19,41 +19,31 @@ int			display_prompt()
 	return (0);
 }
 
-int			read_n_check(char *read_buff, char **env)
+int			read_n_check(char *read_buff, t_list **cmd)
 {
-	t_list		*cmd;
 	char		tmp[1024];
 	char		special[] = {" ;\n\0"};
-	int			i;
-	int			j;
-	int			k;
+	int			i[] = {0, 0, 0};
 
-	i = 0;
-	k = 0;
-	cmd = NULL;
-	(void)env;
-	ft_bzero(tmp, ft_strlen(tmp));
+	ft_bzero(tmp, 1024);
 	while (read_buff[i])
 	{
-		j = 0;
-		while (j < 4)
+		i[1] = -1;
+		while (++i[1] < 4)
 		{
-			if (ft_strlen(tmp) && read_buff[i] == special[j])
+			if (ft_strlen(tmp) && read_buff[i[0]] == special[i[1]])
 			{
-				ft_lstpushback(&cmd, tmp);
+				ft_lstpushback(cmd, tmp);
+				ft_bzero(tmp, 1024);
+				i[0]++;
+				i[3] = 0;
 				break ;
 			}
-			j++;
 		}
-		tmp[k] = read_buff[i];
-		i++;
-		k++;
+		tmp[i[3]++] = read_buff[i[0]++];
 	}
-	while (cmd)
-	{
-		printf("[%s]\n", cmd->content);
-		cmd = cmd->next;
-	}
+	if (ft_strlen(tmp))
+		ft_lstpushback(&cmd, tmp);
 	return (0);
 }
 
@@ -62,14 +52,16 @@ int			father_n_son(char *read_buff, char **av, char **env)
 	if (DEBUG == 1)
 		ft_putendl("fatherandson");
 	pid_t		father;
+	t_list		*cmd;
 	int			stat_loc;
 
 	father = fork();
+	cmd = NULL;
 	if (father > 0)
 		wait(&stat_loc);
 	if (father == 0)
 	{
-		read_n_check("fghaelgfiruaefg hagpoerygrupe hopiaegyure p greapgur;vaeiru", env); /*remettre read_buff en paramettre!!!! */
+		read_n_check("fghaelgfiruaefg hagpoerygrupe hopiaegyure p greapgur;vaeiru", &cmd); /*remettre read_buff en paramettre!!!! */
 		if (ft_strcmp(read_buff, "ls\n") == 0)
 		{
 			printf("---%s\n", read_buff);

@@ -17,7 +17,12 @@ void	ft_lstpushback(t_list **alst, char *content)
 	t_list	*tmp;
 
 	tmp = *alst;
-	while (tmp)
+	if (tmp == NULL)
+	{
+		*alst = ft_lstnew(content);
+		return ;
+	}
+	while (tmp->next)
 		tmp = tmp->next;
-	tmp = ft_lstnew(content);
+	tmp->next = ft_lstnew(content);
 }
