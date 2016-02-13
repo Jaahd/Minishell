@@ -1,26 +1,9 @@
-#include <unistd.h>
+#include <unistd.h> // fork // execve // read
+#include <stdlib.h> // exit // malloc // free
 #include <stdio.h>
-#include <sys/wait.h>
+#include <sys/wait.h> // wait
 #include "minishell.h"
 #include "libft.h"
-
-/// GETENV A CODER !!!!!!!!! //////
-
-
-int			display_prompt()
-{
-	if (DEBUG == 1)
-		ft_putendl("display prompt");
-	char		*name;
-
-	name = getenv("LOGNAME");
-	if (name)
-		ft_putstr(name);
-	else
-		ft_putchar('$');
-	ft_putstr("> ");
-	return (0);
-}
 
 int			read_n_check(char *read_buff, t_list **arg)
 {
@@ -60,80 +43,85 @@ char		*join_exe(char *s1, char *s2)
 	rlt = ft_strjoin(s1, tmp);
 /*	ft_strdel(&s1);
 	ft_strdel(&s2);
-	ft_strdel(&tmp);
-*/	return (rlt);
+	ft_strdel(&tmp); */
+	return (rlt);
 }
 
-int			check_fct(t_list *arg, char **env)
+int			check_fct(char **cmd, char **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("check fct");
 	char		**path;
-	char		**cmd;
 	char		*tmp;
 	int			i;
 
-	tmp = getenv("PATH");			// ma fct "getenv" remplacera
-	path = ft_strsplit(tmp, ':');	// ces 2 lignes
-//	free(tmp);
-	cmd = lst_to_tbl(arg);
+	tmp = get_env("PATH", env);
+	path = ft_strsplit(tmp, ':');
 	i = 0;
 	while(path[i])
 	{
 		tmp = join_exe(path[i], cmd[0]);
-		printf("cmd : %s\n", tmp);
+//		printf("cmd : %s\n", tmp);
 		execve(tmp, cmd, env);
 		i++;
 	}
+	free(tmp);
 	return (0);
 }
 
-int			father_n_son(char *read_buff, char **av, char **env)
+int			father_n_son(char **cmd, char **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("fatherandson");
 	pid_t		father;
-	t_list		*arg;
 	int			stat_loc;
 
-	(void)av;
 	father = fork();
-	arg = NULL;
 	if (father > 0)
 		wait(&stat_loc);
 	if (father == 0)
 	{
-		read_n_check(read_buff, &arg);
-/*		while (arg)
-		{
-			printf("[%s]\n", arg->content);
-			arg = arg->next;
-		}
-*/		check_fct(arg, env);
-		/*		if (ft_strcmp(read_buff, "ls\n") == 0)
-				{
-				printf("---%s\n", read_buff);
-				execve("/bin/ls", av, env);
-				}
-				else
-				{
-				printf("toto\n");
-				exit(EXIT_FAILURE);
-				}
-				*/	}
-		return (0);
+		check_fct(cmd, env);
+		exit(EXIT_FAILURE);
+//		ft_error(); //// TROUVER LE MESSAGE CORRESPONDANT + EXIT_FAILURE
+	}
+	return (0);
 }
 
-int			fct_read(char *read_buff, char **av, char **env)
+int			handle_builtin(char **cmd, char **env)
+{
+	if (DEBUG == 1)
+		ft_putendl("handle builtin");
+	char		*builtin[] = {"cd", "setenv", "unsetenv", "env", "exit"};
+//	int			(*fct_tbl[])(char **cmd, char **env)
+//						= {bi_env};
+//						= {bi_cd, bi_setenv, bi_unsetenv, bi_env, bi_exit};
+	int			i;
+
+	i = 0;
+	while (i < 5 && ft_strcmp(cmd[0], builtin[i]) != 0)
+		i++;
+	if (i < 5 && ft_strcmp(cmd[0], builtin[i]) == 0)
+		bi_env(cmd, env);
+	return (0);
+}
+
+int			fct_read(char *read_buff, char **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("fct_read");
 	int			ret;
+	t_list		*arg;
+	char		**cmd;
 
 	ret = 0;
+	arg = NULL;
 	while ((ret = read(1, read_buff, BUFF_SIZE)) > 0)
 	{
-		father_n_son(read_buff, av, env);
+		read_n_check(read_buff, &arg);
+		cmd = lst_to_tbl(arg);
+		handle_builtin(cmd, env);
+		father_n_son(cmd, env);
 		break ;
 	}
 	return (0);
@@ -144,12 +132,13 @@ int			main(int ac, char **av, char **env)
 	char		*read_buff;
 
 	(void)ac;
+	(void)av;
 	read_buff = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
 	while (1)
 	{
 		ft_bzero(read_buff, BUFF_SIZE);
-		display_prompt();
-		fct_read(read_buff, av, env);
+		display_prompt(env);
+		fct_read(read_buff, env);
 	}
 	return (0);
 }

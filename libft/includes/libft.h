@@ -91,6 +91,7 @@ char				*ft_itoa_base(int n, int base);
 t_list				*ft_split_to_lst(const char *s, char c);
 char				**lst_to_tbl(t_list *lst);
 int					ft_lst_count(t_list *lst);
+int					tbl_len(char **tbl);
 void				ft_free_tbl_s(char **tbl);
 char				*ft_properjoin(char *s1, char *s2);
 int					ft_atoi_base(char *str, int base);
