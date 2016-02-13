@@ -16,7 +16,7 @@ CFLAGS = -g -Wall -Werror -Wextra -I $(HPATH) -I $(LFTHPATH)
 LIBS = -L $(LIBPATH) -lft
 
 SRC = 	msh_main.c \
-		msh_cd.c \
+		msh_builtin.c \
 		msh_pouet.c \
 
 OFILES = $(patsubst %.c, $(OPATH)/%.o, $(SRC))
