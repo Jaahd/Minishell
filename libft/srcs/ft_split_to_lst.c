@@ -32,9 +32,9 @@ t_list		*ft_split_to_lst(const char *s, char c)
 		if (tmp != NULL && (cpt2 - cpt1) > 0)
 		{
 			if (tab == NULL)
-				tab = ft_lstnew(tmp, ft_strlen(tmp) + 1);
+				tab = ft_lstnew(tmp);
 			else
-				ft_lstpushback(&tab, ft_lstnew(tmp, ft_strlen(tmp) + 1));
+				ft_lstpushback(&tab, tmp);
 		}
 		cpt2++;
 	}

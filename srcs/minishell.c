@@ -18,38 +18,45 @@ int			display_prompt()
 	ft_putstr("> ");
 	return (0);
 }
-/*
+
 int			read_n_check(char *read_buff, char **env)
 {
-	t_lst		*cmd;
-	char		*tmp;
-	char		special[] = {' ', ';', '\n', '\0'};
+	t_list		*cmd;
+	char		tmp[1024];
+	char		special[] = {" ;\n\0"};
 	int			i;
 	int			j;
 	int			k;
 
 	i = 0;
 	k = 0;
-	ft_bzero(tmp, 1024);
+	cmd = NULL;
+	(void)env;
+	ft_bzero(tmp, ft_strlen(tmp));
 	while (read_buff[i])
 	{
 		j = 0;
 		while (j < 4)
 		{
-			if (read_buff[i] == special[j])
+			if (ft_strlen(tmp) && read_buff[i] == special[j])
 			{
-				cmd->name = ft_strdup(tmp);
-				free(tmp);
+				ft_lstpushback(&cmd, tmp);
 				break ;
 			}
 			j++;
 		}
 		tmp[k] = read_buff[i];
 		i++;
+		k++;
+	}
+	while (cmd)
+	{
+		printf("[%s]\n", cmd->content);
+		cmd = cmd->next;
 	}
 	return (0);
 }
-*/
+
 int			father_n_son(char *read_buff, char **av, char **env)
 {
 	if (DEBUG == 1)
@@ -62,7 +69,7 @@ int			father_n_son(char *read_buff, char **av, char **env)
 		wait(&stat_loc);
 	if (father == 0)
 	{
-//		read_n_check(read_buff, env);
+		read_n_check("fghaelgfiruaefg hagpoerygrupe hopiaegyure p greapgur;vaeiru", env); /*remettre read_buff en paramettre!!!! */
 		if (ft_strcmp(read_buff, "ls\n") == 0)
 		{
 			printf("---%s\n", read_buff);
