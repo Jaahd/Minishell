@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_strsub_end.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avacher <avacher@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/27 11:19:09 by avacher           #+#    #+#             */
-/*   Updated: 2016/01/19 22:34:02 by avacher          ###   ########.fr       */
+/*   Created: 2015/11/26 10:12:14 by avacher           #+#    #+#             */
+/*   Updated: 2015/12/28 12:34:33 by avacher          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(char *content)
+char	*ft_strsub_end(char const *s, char c)
 {
-	t_list	*new;
+	int		i;
+	size_t	cpt;
+	char	*tmp;
 
-	if ((new = (t_list *)malloc(sizeof(t_list))) == NULL)
-		return (NULL);
-	new->content = NULL;
-	new->next = NULL;
-	if (content == NULL)
-		return (NULL);
-	new->content = ft_strdup(content);
-	return (new);
+	i = 0;
+	cpt = 0;
+	tmp = NULL;
+	if (s != NULL && ft_strchr())
+	{
+		tmp = (char *)malloc(sizeof(char) * (len + 1));
+		if (tmp != NULL)
+		{
+			while (s[start + cpt] != '\0' && cpt < len)
+			{
+				tmp[cpt] = s[start + cpt];
+				cpt++;
+			}
+			tmp[cpt] = '\0';
+		}
+	}
+	return (tmp);
 }
