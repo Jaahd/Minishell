@@ -36,7 +36,7 @@ int			bi_exit(char **arg, char **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("bi exit");
-	(void)arg;
+	if (arg)
 	(void)env;
 	exit(EXIT_SUCCESS);
 	return (0);
