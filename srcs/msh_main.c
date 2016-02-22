@@ -92,17 +92,17 @@ int			handle_builtin(char **cmd, char **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("handle builtin");
-	char		*builtin[] = {"cd", "setenv", "unsetenv", "env", "exit"};
-//	int			(*fct_tbl[])(char **cmd, char **env)
+	char		*builtin[] = {/*"cd", "setenv", "unsetenv",*/ "env", "exit"};
+	int			(*fct_tbl[])(char **cmd, char **env)
 //						= {bi_env};
-//						= {bi_cd, bi_setenv, bi_unsetenv, bi_env, bi_exit};
+						= {/*&bi_cd, &bi_setenv, &bi_unsetenv,*/ &bi_env, &bi_exit};
 	int			i;
 
 	i = 0;
 	while (i < 5 && ft_strcmp(cmd[0], builtin[i]) != 0)
 		i++;
 	if (i < 5 && ft_strcmp(cmd[0], builtin[i]) == 0)
-		bi_env(cmd, env);
+		fct_tbl[i](cmd, env);
 	return (0);
 }
 

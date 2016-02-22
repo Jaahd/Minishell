@@ -74,8 +74,8 @@ t_duo				*tbl_to_lst(char **tbl, char c)
 	i = 0;
 	while (tbl[i])
 	{
-		tmp_name = chr_begining(tbl[i], '=');
-		tmp_value = strchr_1(tbl[î], '=');
+		tmp_name = chr_begining(tbl[i], c);
+		tmp_value = strchr_1(tbl[i], c);
 		duo_pushback(&lst, tmp_name, tmp_value);
 	}
 	return (lst);
