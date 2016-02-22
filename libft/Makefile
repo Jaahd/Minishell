@@ -86,6 +86,7 @@ SRC = ft_memset.c \
 	  ft_itoa_base.c \
 	  ft_split_to_lst.c \
 	  duo_to_lst.c \
+	  free_tab.c \
 	  lst_to_tbl.c \
 	  ft_lst_count.c \
 	  tbl_len.c \
