@@ -1,6 +1,6 @@
 #include "minishell.h"
 #include "libft.h"
-
+/*
 char		*get_env(char *to_find, char **env)
 {
 	if (DEBUG == 1)
@@ -23,14 +23,14 @@ char		*get_env(char *to_find, char **env)
 	}
 	return (NULL);
 }
-
+*/
 int			display_prompt(char **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("display prompt");
 	char		*name;
 
-	name = get_env("LOGNAME", env);
+	name = get_env(&env, "LOGNAME");
 	if (name)
 		ft_putstr(name);
 	else

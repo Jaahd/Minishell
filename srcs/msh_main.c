@@ -45,8 +45,8 @@ char		*join_exe(char *s1, char *s2)
 	tmp = ft_strjoin("/", s2);
 	rlt = ft_strjoin(s1, tmp);
 /*	ft_strdel(&s1);
-	ft_strdel(&s2);
-	ft_strdel(&tmp); */
+	ft_strdel(&s2); */
+	ft_strdel(&tmp);
 	return (rlt);
 }
 
@@ -73,7 +73,7 @@ int			check_fct(char **cmd, char **env)
 	char		*tmp;
 	int			i;
 
-	tmp = get_env("PATH", env);
+	tmp = get_env(&env, "PATH");
 	if(tmp == NULL)
 		 path = fill_path();
 	else
@@ -111,12 +111,12 @@ int			father_n_son(char **cmd, char **env)
 	return (0);
 }
 
-int			handle_builtin(char **cmd, char ***env)
+int			handle_builtin(char **cmd, t_duo **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("handle builtin");
 	char		*builtin[] = {/*"cd", "setenv", "unsetenv",*/ "env", "exit"};
-	int			(*fct_tbl[])(char **cmd, char ***env)
+	int			(*fct_tbl[])(char **cmd, t_duo **env)
 		//						= {bi_env};
 		= {/*&bi_cd, &bi_setenv, &bi_unsetenv,*/ &bi_env, &bi_exit};
 	int			i;
@@ -130,10 +130,10 @@ int			handle_builtin(char **cmd, char ***env)
 	return (0);
 }
 
-int			fct_read(char *read_buff, char ***env)
+int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 {
 	if (DEBUG == 1)
-		ft_putendl("fct_read");
+		ft_putendl("read buff");
 	int			ret;
 	t_list		*arg;
 	char		**cmd;
@@ -143,43 +143,55 @@ int			fct_read(char *read_buff, char ***env)
 	while ((ret = read(1, read_buff, BUFF_SIZE)) > 0)
 	{
 		cmd = read_n_check(SEP, read_buff);
-		if (handle_builtin(cmd, env) == -1)
+		if (handle_builtin(cmd, env_cpy) == -1)
 			break ;
-		father_n_son(cmd, *env);
+		father_n_son(cmd, env);
 		break ;
 	}
 	return (0);
 }
 
-char		**cpy_env(char **env)
+t_duo		*cpy_env(char **env)
 {
-	char		**ret;
+	if (DEBUG == 1)
+		ft_putendl("cpy env");
+	t_duo		*ret;
+//	char		*tmp;
 	int			i;
+	int			j;
 
 	i = 0;
-	while (env[i])
-		i++;
-	if (i = 0)
+	j = 0;
+/*	if (i = 0)
 	{
 		ret = (char **)malloc(sizeof(char *) * 2);
-		ret[0] = ft_strjoin("PWD);
+		ret[0] = ft_strjoin("PWD");
 	}
 	else
 		ret = (char **)malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	while (env[i])
+*/	while (env[i])
 	{
-		ret[i] = ft_strdup(env[i]);
+		while (env[i][j])
+		{
+			if (env[i][j] == '=')
+				ret->name = ft_strsub(env[i], 0, j);
+			if (env[i][j] == '=' && env[i][j + 1])
+				ret->value = ft_strsub(env[i], j + 1,
+						ft_strlen(env[i]) - (j + 1));
+			j++;
+		}
 		i++;
+		printf("name : %s\nvalue : %s\n\n", ret->name, ret->value);
+		ret = ret->next;
 	}
-	ret[i] = NULL;
 	return (ret);
 }
 
 int			main(int ac, char **av, char **env)
 {
 	char		*read_buff;
-	char		**env_cpy;
+	t_duo		*env_cpy;
+
 
 	(void)ac;
 	(void)av;
@@ -188,8 +200,8 @@ int			main(int ac, char **av, char **env)
 	while (1)
 	{
 		ft_bzero(read_buff, BUFF_SIZE);
-		display_prompt(env_cpy);
-		fct_read(read_buff, &env_cpy);
+		display_prompt(env);
+		fct_read(read_buff, env, &env_cpy);
 	}
 	return (0);
 }

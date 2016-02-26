@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   duo_to_lst.c                                       :+:      :+:    :+:   */
+/*   duo_pushback.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avacher <avacher@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,40 +12,33 @@
 
 #include "libft.h"
 
-static char			*chr_begining(const char *str, int c)
+static t_duo		*duo_new(char *name, char *value)
 {
-	int				i;
-	char			*ret;
+	t_duo			*new;
 
-	i = 0;
-	while (str[i] != c)
-		i++;
-	ret = ft_strsub(str, 0, i);
-	return (ret);
-}
-
-static char			*strchr_1(const char *str, int c)
-{
-	while (str && (*str != c) && (*str != '\0'))
-		str++;
-	if (!str || *str != c)
+	if ((new = (t_duo *)malloc(sizeof(t_duo))) == NULL)
 		return (NULL);
-	return ((char*)(str + 1));
+	new->name = NULL;
+	new->value = NULL;
+	if (name == NULL && value == NULL)
+		return (NULL);
+	new->name = ft_strdup(name);
+	new->value = ft_strdup(value);
+	return (new);
 }
 
-t_duo				*tbl_to_lst(char **tbl, char c)
+int					duo_pushback(t_duo **lst, char *name, char *value)
 {
-	int				i;
-	char			*tmp_name;
-	char			*tmp_value;
-	t_duo			*lst;
+	t_duo			*tmp;
 
-	i = 0;
-	while (tbl[i])
+	tmp = *lst;
+	if (tmp == NULL)
 	{
-		tmp_name = chr_begining(tbl[i], c);
-		tmp_value = strchr_1(tbl[i], c);
-		duo_pushback(&lst, tmp_name, tmp_value);
+		*lst = duo_new(name, value);
+		return (0);
 	}
-	return (lst);
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = duo_new(name, value);
+	return (0);
 }
