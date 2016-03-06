@@ -150,7 +150,7 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 	}
 	return (0);
 }
-
+/*
 t_duo		*cpy_env(char **env)
 {
 	if (DEBUG == 1)
@@ -162,31 +162,30 @@ t_duo		*cpy_env(char **env)
 
 	i = 0;
 	j = 0;
-/*	if (i = 0)
+	if (i = 0)
 	{
 		ret = (char **)malloc(sizeof(char *) * 2);
 		ret[0] = ft_strjoin("PWD");
 	}
 	else
 		ret = (char **)malloc(sizeof(char *) * (i + 1));
-*/	while (env[i])
+	while (env[i])
 	{
 		while (env[i][j])
 		{
 			if (env[i][j] == '=')
 				ret->name = ft_strsub(env[i], 0, j);
 			if (env[i][j] == '=' && env[i][j + 1])
-				ret->value = ft_strsub(env[i], j + 1,
-						ft_strlen(env[i]) - (j + 1));
+				ret->value = ft_strsub(env[i], j + 1, ft_strlen(env[i]) - (j + 1));
 			j++;
 		}
 		i++;
-		printf("name : %s\nvalue : %s\n\n", ret->name, ret->value);
+//		printf("name : %s\nvalue : %s\n\n", ret->name, ret->value);
 		ret = ret->next;
 	}
 	return (ret);
 }
-
+*/
 int			main(int ac, char **av, char **env)
 {
 	char		*read_buff;
@@ -195,7 +194,8 @@ int			main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	env_cpy = cpy_env(env);
+	env_cpy = tbl_to_duo(env, '=');
+		ft_putendl("pouet");
 	read_buff = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
 	while (1)
 	{

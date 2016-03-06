@@ -14,6 +14,7 @@
 
 static t_duo		*duo_new(char *name, char *value)
 {
+	ft_putendl("trololo");
 	t_duo			*new;
 
 	if ((new = (t_duo *)malloc(sizeof(t_duo))) == NULL)
@@ -34,11 +35,15 @@ int					duo_pushback(t_duo **lst, char *name, char *value)
 	tmp = *lst;
 	if (tmp == NULL)
 	{
+ft_putendl("prout");
 		*lst = duo_new(name, value);
 		return (0);
 	}
-	while (tmp->next)
+	while (tmp && tmp->next)
+	{
+ft_putendl("prout2");
 		tmp = tmp->next;
+	}
 	tmp->next = duo_new(name, value);
 	return (0);
 }

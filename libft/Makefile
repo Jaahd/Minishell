@@ -85,7 +85,7 @@ SRC = ft_memset.c \
 	  ft_lstpushback.c \
 	  ft_itoa_base.c \
 	  ft_split_to_lst.c \
-	  duo_to_lst.c \
+	  tbl_to_duo.c \
 	  duo_pushbk.c \
 	  free_tab.c \
 	  lst_to_tbl.c \
