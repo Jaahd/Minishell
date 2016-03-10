@@ -2,6 +2,7 @@
 #include "libft.h"
 #include <stdio.h>
 /*
+// attention si la valeur contient des caracteres non alphanum ca ne marche pas !!!!!
 int			set_env(char ***env, char *name, char *value)
 {
 	if (DEBUG == 1)
@@ -120,6 +121,7 @@ int			bi_exit(char **arg, t_duo **env)
 	return (0);
 }
 
+// ajouter la gestion de env -i (donc avec qqch derriere env ^^), enventuellement ac -u...
 int			bi_env(char **arg, t_duo **env)
 {
 	if (DEBUG == 1)
