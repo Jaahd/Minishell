@@ -190,7 +190,7 @@ int			bi_env(char **arg, t_duo **env)
 			ft_putstr((*env)->name);
 			ft_putchar('=');
 			ft_putendl((*env)->value);
-			(*env) = (*env)->next;
+			*env = (*env)->next;
 		}
 	}
 	return (0);

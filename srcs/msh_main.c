@@ -193,11 +193,17 @@ int			main(int ac, char **av, char **env)
 {
 	char		*read_buff;
 	t_duo		*env_cpy;
+	t_duo		*env_cpy2;
 
 
 	(void)ac;
 	(void)av;
 	env_cpy = tbl_to_duo(env, '=');
+	env_cpy2 = env_cpy;
+	ft_putendl("\ndebut de la liste");
+	while (env_cpy2)
+	{ft_putendl(env_cpy2->name); env_cpy2 = env_cpy2->next;
+	}
 	read_buff = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
 	while (1)
 	{
