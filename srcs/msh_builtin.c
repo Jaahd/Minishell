@@ -185,7 +185,7 @@ int			bi_env(char **arg, t_duo **env)
 	}
 	else
 	{
-		while ((*env))
+		while (*env)
 		{
 			ft_putstr((*env)->name);
 			ft_putchar('=');
