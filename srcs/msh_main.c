@@ -145,6 +145,7 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 	while ((ret = read(1, read_buff, BUFF_SIZE)) > 0)
 	{
 		cmd = read_n_check(SEP, read_buff);
+		handle_tilde(cmd);
 		if (handle_builtin(cmd, env_cpy) == -1)
 			break ;
 		father_n_son(cmd, env, env_cpy);

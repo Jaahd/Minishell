@@ -4,6 +4,9 @@
 
 // fonction qui ajoute a env la variable name avec la valeur value
 int			add_env(t_duo **env, char *name, char *value)
+/*
+// attention si la valeur contient des caracteres non alphanum ca ne marche pas !!!!!
+int			set_env(char ***env, char *name, char *value)
 {
 	if (DEBUG == 1)
 		ft_putendl("add env");
@@ -144,6 +147,7 @@ int			bi_exit(char **arg, t_duo **env)
 	return (0);
 }
 
+// ajouter la gestion de env -i (donc avec qqch derriere env ^^), enventuellement ac -u...
 int			bi_env(char **arg, t_duo **env)
 {
 	if (DEBUG == 1)
