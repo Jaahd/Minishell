@@ -1,10 +1,10 @@
 #include <unistd.h>
 //#include <sys/syslimits.h> // cf dans /usr/include/sys/syslimits.h ^^
-#define PATH_MAX 1024
+#define PATH_MAX 1024 // a virer a 42 ;)
 #include "minishell.h"
 #include "libft.h"
 
-int			cd_usage(char **arg, char **path)
+int			cd_usage(char **arg, char **path, char *tmp_old_pwd)
 {
 	if (arg[2])
 	{
@@ -61,13 +61,12 @@ int			bi_cd(char **arg, t_duo **env)
 	char		*tmp_old_pwd;
 	char		*path;
 	int			i;
-	// var tmp pour sauvegarger le pwd actuel avant de verifier s'il faut effectivement le changer ou pas
 
 	tmp_pwd = get_env(env, "PWD"); // strdup?
 	tmp_old_pwd = get_env(env, "OLDPWD"); // strdup?
 	i = 0;
 	path = NULL;
-	i += cd_usage(arg, &path);
+	i += cd_usage(arg, &path, tmp_old_pwd);
 	i += cd_access(arg, path);
 	if (i < 0)
 		return (-1);

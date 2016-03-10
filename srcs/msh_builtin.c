@@ -117,13 +117,16 @@ int			bi_unsetenv(char **arg, t_duo **env)
 
 int			bi_setenv(char **arg, t_duo **env)
 {
+	char		*pouet;
+
+	pouet = ft_strdup("env");
 	if (DEBUG == 1)
 		ft_putendl("bi setenv");
 	if (!arg[1])
-		bi_env("env", env); // heu je dois mettre quoi la????
+		bi_env(&pouet, env); // heu je dois mettre quoi la????
 	if (arg[3])
 		ft_putendl("unsetenv: Too many arguments.");
-	
+	free(pouet);
 	return (0);
 }
 
