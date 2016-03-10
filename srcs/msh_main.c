@@ -119,6 +119,13 @@ int			handle_builtin(char **cmd, t_duo **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("handle builtin");
+	t_duo		*env_cpy2;
+
+	env_cpy2 = *env;
+	ft_putendl("\ndebut de la liste");
+	while (env_cpy2)
+	{ft_putendl(env_cpy2->name); env_cpy2 = env_cpy2->next;
+	}
 	char		*builtin[] = {/*"cd", "setenv", "unsetenv",*/ "env", "exit"};
 	int			(*fct_tbl[])(char **cmd, t_duo **env)
 		//						= {bi_env};
@@ -143,10 +150,10 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 	t_duo		*env_cpy2;
 
 	env_cpy2 = *env_cpy;
-	ft_putendl("\ndebut de la liste");
+/*	ft_putendl("\ndebut de la liste");
 	while (env_cpy2)
 	{ft_putendl(env_cpy2->name); env_cpy2 = env_cpy2->next;
-	}
+	}*/
 	ret = 0;
 	while ((ret = read(1, read_buff, BUFF_SIZE)) > 0)
 	{
