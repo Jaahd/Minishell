@@ -1,7 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define DEBUG 1
+# define DEBUG 0
 # define SEP " \t\n\0"
 # define BUFF_SIZE 1024
 
@@ -10,7 +10,7 @@
 // builtin : cd setenv unsetenv env exit
 
 /* pouet */
-char		*get_env(char ***env, char *name);
+char		*get_env(t_duo **env, char *name);
 int			display_prompt(char **env);
 
 /* builtin */

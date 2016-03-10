@@ -97,6 +97,8 @@ void				ft_lstpushback(t_list **alst, char *new);
 char				*ft_itoa_base(int n, int base);
 t_list				*ft_split_to_lst(const char *s, char c);
 t_duo				*tbl_to_duo(char **tbl, char c);
+char				*srch_begining(const char *str, int c);
+char				*srch_value(const char *str, int c);
 int					duo_pushback(t_duo **lst, char *name, char *value);
 int					free_tab(char ***tab);
 char				**lst_to_tbl(t_list *lst);

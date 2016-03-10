@@ -34,6 +34,12 @@ char		**read_n_check(char *special, char *read_buff)
 	if (ft_strlen(tmp))
 		ft_lstpushback(&arg, tmp);
 	ret = lst_to_tbl(arg);
+	/* a suppr----->
+	i[0] = -1;
+	ft_putendl("on commence la liste la :");
+	while (ret[++i[0]])
+		ft_putendl(ret[i[0]]);
+	*/// <------ jusque la ;)
 	return (ret);
 }
 
@@ -65,7 +71,7 @@ char		**fill_path()
 	return (path);
 }
 
-int			check_fct(char **cmd, char **env)
+int			check_fct(char **cmd, char **env, t_duo **env_cpy)
 {
 	if (DEBUG == 1)
 		ft_putendl("check fct");
@@ -73,26 +79,24 @@ int			check_fct(char **cmd, char **env)
 	char		*tmp;
 	int			i;
 
-	tmp = get_env(&env, "PATH");
+	tmp = get_env(env_cpy, "PATH");
 	if(tmp == NULL)
 		 path = fill_path();
 	else
-	{
 		path = read_n_check(":", tmp);
-		i = 0;
-		while(path[i])
-		{
-			tmp = join_exe(path[i], cmd[0]);
-			//		printf("cmd : %s\n", tmp);
-			execve(tmp, cmd, env);
-			i++;
-		}
-		free(tmp);
+	i = 0;
+	while(path[i])
+	{
+		tmp = join_exe(path[i], cmd[0]);
+		//		printf("cmd : %s\n", tmp);
+		execve(tmp, cmd, env);
+		i++;
 	}
+	free(tmp);
 	return (0);
 }
 
-int			father_n_son(char **cmd, char **env)
+int			father_n_son(char **cmd, char **env, t_duo **env_cpy)
 {
 	if (DEBUG == 1)
 		ft_putendl("fatherandson");
@@ -104,7 +108,7 @@ int			father_n_son(char **cmd, char **env)
 		wait(&stat_loc);
 	if (father == 0)
 	{
-		check_fct(cmd, env);
+		check_fct(cmd, env, env_cpy);
 		exit(EXIT_FAILURE);
 		//		ft_error(); //// TROUVER LE MESSAGE CORRESPONDANT + EXIT_FAILURE
 	}
@@ -135,17 +139,15 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 	if (DEBUG == 1)
 		ft_putendl("read buff");
 	int			ret;
-	t_list		*arg;
 	char		**cmd;
 
 	ret = 0;
-	arg = NULL;
 	while ((ret = read(1, read_buff, BUFF_SIZE)) > 0)
 	{
 		cmd = read_n_check(SEP, read_buff);
 		if (handle_builtin(cmd, env_cpy) == -1)
 			break ;
-		father_n_son(cmd, env);
+		father_n_son(cmd, env, env_cpy);
 		break ;
 	}
 	return (0);
@@ -195,7 +197,6 @@ int			main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	env_cpy = tbl_to_duo(env, '=');
-		ft_putendl("pouet");
 	read_buff = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
 	while (1)
 	{

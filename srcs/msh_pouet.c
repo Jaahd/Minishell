@@ -1,41 +1,34 @@
+#include <stdio.h>
 #include "minishell.h"
 #include "libft.h"
-/*
-char		*get_env(char *to_find, char **env)
-{
-	if (DEBUG == 1)
-		ft_putendl("get env");
-	int			i;
-	int			size;
-	int			size_env;
 
-	i = 0;
-	while(env[i])
-	{
-		size = ft_strlen(to_find);
-		if (ft_strncmp(to_find, env[i], size) == 0)
-		{
-			size += 1;
-			size_env = ft_strlen(env[i]);
-			return (ft_strsub(env[i], size, (size_env - size)));
-		}
-		i++;
-	}
-	return (NULL);
-}
-*/
 int			display_prompt(char **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("display prompt");
 	char		*name;
+	char		*tmp;
+	int			i;
 
-	name = get_env(&env, "LOGNAME");
+	i = 0;
+	tmp = NULL;
+	name = NULL;
+	while (env[i])
+	{
+		tmp = ft_strsub(env[i], 0, 7);
+		if (ft_strcmp("LOGNAME", tmp) == 0)
+		{
+			name = srch_value(env[i], '=');
+			break ;
+		}
+		i++;
+	}
+	ft_putstr("\033[34m");
 	if (name)
 		ft_putstr(name);
 	else
 		ft_putchar('$');
-	ft_putstr("> ");
+	ft_putstr("> \033[0m");
 	return (0);
 }
 
