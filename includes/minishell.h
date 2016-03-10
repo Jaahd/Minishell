@@ -17,4 +17,13 @@ int			display_prompt(char **env);
 int			bi_env(char **arg, t_duo **env);
 int			bi_exit(char **arg, t_duo **env);
 
+int			bi_cd(char **arg, t_duo **env);
+
+int			add_env(t_duo **env, char *name, char *value);
+int			change_env(t_duo **env, char *name, char *value);
+int			del_first(t_duo **env, char *name);
+int			del_env(t_duo **env, char *name);
+char		*get_env(t_duo **env, char *name);
+
+
 #endif

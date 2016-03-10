@@ -3,11 +3,11 @@
 #include <stdio.h>
 
 // fonction qui ajoute a env la variable name avec la valeur value
-int			add_env(t_duo **env, char *name, char *value)
-{}
-
+//
 // attention si la valeur contient des caracteres non alphanum ca ne marche pas !!!!!
-int			set_env(char ***env, char *name, char *value)
+//
+// ATTENTION!!!!! : est ce qu'il faut trier par ordre alpha????
+int			add_env(t_duo **env, char *name, char *value)
 {
 	if (DEBUG == 1)
 		ft_putendl("add env");
@@ -15,6 +15,23 @@ int			set_env(char ***env, char *name, char *value)
 		return (-1);
 	else
 		duo_pushback(env, name, value);
+	return (0);
+}
+
+// fonction qui modifie ou ajoute la variable name avec la valeur value
+int			change_env(t_duo **env, char *name, char *value)
+{
+	while (*env)
+	{
+		if (ft_strcmp((*env)->name, name) == 0)
+		{
+			free((*env)->value);
+			(*env)->value = ft_strdup(value);
+			return (1);
+		}
+		*env = (*env)->next;
+	}
+	add_env(env, name, value);
 	return (0);
 }
 
