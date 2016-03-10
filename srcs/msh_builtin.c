@@ -4,7 +4,8 @@
 
 // fonction qui ajoute a env la variable name avec la valeur value
 int			add_env(t_duo **env, char *name, char *value)
-/*
+{}
+
 // attention si la valeur contient des caracteres non alphanum ca ne marche pas !!!!!
 int			set_env(char ***env, char *name, char *value)
 {
@@ -46,7 +47,7 @@ int			del_env(t_duo **env, char *name)
 	t_duo		*cpy;
 	t_duo		*tmp;
 
-	if (del_first(t_duo **env, char *name) == 1)
+	if (del_first(env, name) == 1)
 		return (1);
 	cpy = *env;
 	tmp = NULL;
@@ -102,7 +103,7 @@ int			bi_setenv(char **arg, t_duo **env)
 	if (DEBUG == 1)
 		ft_putendl("bi setenv");
 	if (!arg[1])
-		bi_env("env", env);
+		bi_env("env", env); // heu je dois mettre quoi la????
 	if (arg[3])
 		ft_putendl("unsetenv: Too many arguments.");
 	
@@ -116,7 +117,7 @@ int			bi_setenv(char **arg, t_duo **env)
    ft_putendl("bi cd");
    return (0);
    }
-   */
+*/
 
 int			bi_exit(char **arg, t_duo **env)
 {
