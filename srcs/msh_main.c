@@ -119,17 +119,18 @@ int			handle_builtin(char **cmd, t_duo **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("handle builtin");
-	t_duo		*env_cpy2;
+/*	t_duo		*env_cpy2;
 
 	env_cpy2 = *env;
+*/	/*
 	ft_putendl("\ndebut de la liste");
 	while (env_cpy2)
 	{ft_putendl(env_cpy2->name); env_cpy2 = env_cpy2->next;
-	}
-	char		*builtin[] = {/*"cd", "setenv", "unsetenv",*/ "env", "exit"};
+	}*/
+	char		*builtin[] = {/*"cd",*/ "setenv", "unsetenv", "env", "exit"};
 	int			(*fct_tbl[])(char **cmd, t_duo **env)
 		//						= {bi_env};
-		= {/*&bi_cd, &bi_setenv, &bi_unsetenv,*/ &bi_env, &bi_exit};
+		= {/*&bi_cd,*/ &bi_setenv, &bi_unsetenv, &bi_env, &bi_exit};
 	int			i;
 
 	i = 0;
@@ -159,8 +160,18 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 	{
 		cmd = read_n_check(SEP, read_buff);
 //		handle_tilde(cmd);
+	env_cpy2 = *env_cpy;
+	ft_putendl("\ndebut de la liste");
+	while (env_cpy2)
+	{ft_putendl(env_cpy2->name); env_cpy2 = env_cpy2->next;
+	}
 		if (handle_builtin(cmd, env_cpy) == -1)
 			break ;
+	env_cpy2 = *env_cpy;
+	ft_putendl("\n----------debut de la liste");
+	while (env_cpy2)
+	{ft_putendl(env_cpy2->name); env_cpy2 = env_cpy2->next;
+	}
 		father_n_son(cmd, env, env_cpy);
 		break ;
 	}

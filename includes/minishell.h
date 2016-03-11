@@ -15,7 +15,12 @@ int			display_prompt(char **env);
 
 /* builtin */
 int			bi_env(char **arg, t_duo **env);
+
 int			bi_exit(char **arg, t_duo **env);
+
+int			bi_setenv(char **arg, t_duo **env);
+
+int			bi_unsetenv(char **arg, t_duo **env);
 
 int			bi_cd(char **arg, t_duo **env);
 

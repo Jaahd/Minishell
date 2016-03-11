@@ -117,16 +117,24 @@ int			bi_unsetenv(char **arg, t_duo **env)
 
 int			bi_setenv(char **arg, t_duo **env)
 {
-	char		*pouet;
-
-	pouet = ft_strdup("env");
 	if (DEBUG == 1)
 		ft_putendl("bi setenv");
+
 	if (!arg[1])
-		bi_env(&pouet, env); // heu je dois mettre quoi la????
+	{
+		bi_env(arg, env); // heu je dois mettre quoi la????
+		return (0);
+	}
+	if (arg[1] && arg[2] && !arg[3])
+	{
+		change_env(env, arg[1], arg[2]);
+		return (0);
+	}
 	if (arg[3])
-		ft_putendl("unsetenv: Too many arguments.");
-	free(pouet);
+	{
+		ft_putendl("setenv: Too many arguments.");
+		return (-1);
+	}
 	return (0);
 }
 
@@ -177,7 +185,7 @@ int			bi_env(char **arg, t_duo **env)
 
 	i = 0;
 	if (arg[1])
-	{
+ 	{
 		ft_putstr("env :");
 		ft_putstr(arg[1]);
 		ft_putendl(": No such file or directory");
