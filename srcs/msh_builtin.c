@@ -21,15 +21,18 @@ int			add_env(t_duo **env, char *name, char *value)
 // fonction qui modifie ou ajoute la variable name avec la valeur value
 int			change_env(t_duo **env, char *name, char *value)
 {
-	while (*env)
+	t_duo		*cpy;
+
+	cpy = *env;
+	while (cpy)
 	{
-		if (ft_strcmp((*env)->name, name) == 0)
+		if (ft_strcmp(cpy->name, name) == 0)
 		{
-			free((*env)->value);
-			(*env)->value = ft_strdup(value);
+			free(cpy->value);
+			cpy->value = ft_strdup(value);
 			return (1);
 		}
-		*env = (*env)->next;
+		cpy = cpy->next;
 	}
 	add_env(env, name, value);
 	return (0);
@@ -89,11 +92,14 @@ char		*get_env(t_duo **env, char *name)
 {
 	if (DEBUG == 1)
 		ft_putendl("get env");
-	while (*env)
+	t_duo		*cpy;
+
+	cpy = *env;
+	while (cpy)
 	{
-		if (ft_strcmp(name, (*env)->name) == 0)
-			return ((*env)->value);
-		*env = (*env)->next;
+		if (ft_strcmp(name, cpy->name) == 0)
+			return (cpy->value);
+		cpy = cpy->next;
 	}
 	return (NULL);
 }
@@ -181,9 +187,11 @@ int			bi_env(char **arg, t_duo **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("bi env");
+	t_duo		*cpy;
 	int			i;
 
 	i = 0;
+	cpy = *env;
 	if (arg[1])
  	{
 		ft_putstr("env :");
@@ -193,12 +201,12 @@ int			bi_env(char **arg, t_duo **env)
 	}
 	else
 	{
-		while (*env)
+		while (cpy)
 		{
-			ft_putstr((*env)->name);
+	/*		ft_putstr(cpy->name);
 			ft_putchar('=');
-			ft_putendl((*env)->value);
-			*env = (*env)->next;
+			ft_putendl(cpy->value);
+	*/		cpy = cpy->next;
 		}
 	}
 	return (0);

@@ -34,12 +34,6 @@ char		**read_n_check(char *special, char *read_buff)
 	if (ft_strlen(tmp))
 		ft_lstpushback(&arg, tmp);
 	ret = lst_to_tbl(arg);
-	/* a suppr----->
-	i[0] = -1;
-	ft_putendl("on commence la liste la :");
-	while (ret[++i[0]])
-		ft_putendl(ret[i[0]]);
-	*/// <------ jusque la ;)
 	return (ret);
 }
 
@@ -160,59 +154,24 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 	{
 		cmd = read_n_check(SEP, read_buff);
 //		handle_tilde(cmd);
-	env_cpy2 = *env_cpy;
-	ft_putendl("\ndebut de la liste");
+/*	env_cpy2 = *env_cpy;
+	ft_putendl("\navant");
 	while (env_cpy2)
 	{ft_putendl(env_cpy2->name); env_cpy2 = env_cpy2->next;
-	}
+	}*/
 		if (handle_builtin(cmd, env_cpy) == -1)
 			break ;
 	env_cpy2 = *env_cpy;
-	ft_putendl("\n----------debut de la liste");
+	ft_putendl("\napres");
 	while (env_cpy2)
-	{ft_putendl(env_cpy2->name); env_cpy2 = env_cpy2->next;
+	{ft_putstr("------"); ft_putendl(env_cpy2->name); env_cpy2 = env_cpy2->next;
 	}
 		father_n_son(cmd, env, env_cpy);
 		break ;
 	}
 	return (0);
 }
-/*
-t_duo		*cpy_env(char **env)
-{
-	if (DEBUG == 1)
-		ft_putendl("cpy env");
-	t_duo		*ret;
-//	char		*tmp;
-	int			i;
-	int			j;
 
-	i = 0;
-	j = 0;
-	if (i = 0)
-	{
-		ret = (char **)malloc(sizeof(char *) * 2);
-		ret[0] = ft_strjoin("PWD");
-	}
-	else
-		ret = (char **)malloc(sizeof(char *) * (i + 1));
-	while (env[i])
-	{
-		while (env[i][j])
-		{
-			if (env[i][j] == '=')
-				ret->name = ft_strsub(env[i], 0, j);
-			if (env[i][j] == '=' && env[i][j + 1])
-				ret->value = ft_strsub(env[i], j + 1, ft_strlen(env[i]) - (j + 1));
-			j++;
-		}
-		i++;
-//		printf("name : %s\nvalue : %s\n\n", ret->name, ret->value);
-		ret = ret->next;
-	}
-	return (ret);
-}
-*/
 int			main(int ac, char **av, char **env)
 {
 	char		*read_buff;
