@@ -106,7 +106,7 @@ int			bi_unsetenv(char **arg, t_duo **env)
 
 	i = 1;
 	if (!arg[i])
-		ft_putendl("unsetenv: Too few arguments.");
+		ft_putendl("minishell: unsetenv: too few arguments.");
 	while(arg[i])
 	{
 		del_env(env, arg[i]);
@@ -132,7 +132,7 @@ int			bi_setenv(char **arg, t_duo **env)
 	}
 	if (arg[3])
 	{
-		ft_putendl("setenv: Too many arguments.");
+		ft_putendl("minishell: setenv: too many arguments.");
 		return (-1);
 	}
 	return (0);
@@ -156,7 +156,7 @@ int			bi_exit(char **arg, t_duo **env)
 	i = 0;
 	if (arg[1] && arg[2])
 	{
-		ft_putendl("exit : too many arguments");
+		ft_putendl("minishell: exit : too many arguments");
 		return (-1);
 	}
 	while(arg[1] && arg[1][i])
