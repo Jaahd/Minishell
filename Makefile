@@ -17,6 +17,7 @@ LIBS = -L $(LIBPATH) -lft
 
 SRC = 	msh_main.c \
 		msh_builtin.c \
+		msh_cd.c \
 		msh_pouet.c \
 
 OFILES = $(patsubst %.c, $(OPATH)/%.o, $(SRC))
@@ -67,3 +68,5 @@ re: fclean all
 #   MAG  	"\033[35m"
 #   CYN  	"\033[36m"
 #   WHT  	"\033[37m"
+
+#   cf https://www.admin-linux.fr/bash-de-la-couleur-dans-le-shell/<Paste>

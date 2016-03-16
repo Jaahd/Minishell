@@ -10,14 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+
 #include "libft.h"
 
 int			free_tab(char ***tab)
 {
 	int			i;
+	int			len;
 
 	i = 0;
-	while(tab && *tab)
+	len = tbl_len(*tab);
+	while(i < len)
 	{
 		free((*tab)[i]);
 		i++;

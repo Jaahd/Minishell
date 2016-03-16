@@ -2,33 +2,30 @@
 #include "minishell.h"
 #include "libft.h"
 
-int			display_prompt(char **env)
+int			display_prompt(t_duo **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("display prompt");
 	char		*name;
-	char		*tmp;
+	char		*path;
 	int			i;
 
 	i = 0;
-	tmp = NULL;
-	name = NULL;
-	while (env[i])
-	{
-		tmp = ft_strsub(env[i], 0, 7);
-		if (ft_strcmp("LOGNAME", tmp) == 0)
-		{
-			name = srch_value(env[i], '=');
-			break ;
-		}
-		i++;
-	}
-	ft_putstr("\033[34m");
+	name = get_env(env, "LOGNAME");
+	path = get_env(env, "PWD");
 	if (name)
+	{
+		ft_putstr("\033[32;1m");
 		ft_putstr(name);
-	else
-		ft_putchar('$');
-	ft_putstr("> \033[0m");
+		ft_putstr(": \033[0m");
+	}
+	if (path)
+	{
+		ft_putstr("\033[34;1m");
+		ft_putstr(path);
+		ft_putstr(" \033[0m");
+	}
+	ft_putstr("\033[36;1m$> \033[0m");
 	return (0);
 }
 

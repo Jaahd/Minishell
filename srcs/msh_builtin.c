@@ -2,11 +2,9 @@
 #include "libft.h"
 #include <stdio.h>
 
-// fonction qui ajoute a env la variable name avec la valeur value
-//
-// attention si la valeur contient des caracteres non alphanum ca ne marche pas !!!!!
-//
 // ATTENTION!!!!! : est ce qu'il faut trier par ordre alpha????
+
+// fonction qui ajoute a env la variable name avec la valeur value
 int			add_env(t_duo **env, char *name, char *value)
 {
 	if (DEBUG == 1)
@@ -21,6 +19,8 @@ int			add_env(t_duo **env, char *name, char *value)
 // fonction qui modifie ou ajoute la variable name avec la valeur value
 int			change_env(t_duo **env, char *name, char *value)
 {
+	if (DEBUG == 1)
+		ft_putendl("change env");
 	t_duo		*cpy;
 
 	cpy = *env;
@@ -54,7 +54,7 @@ int			del_first(t_duo **env, char *name)
 		ft_strdel(&(cpy->name));
 		ft_strdel(&(cpy->value));
 		free(cpy);
-		cpy = tmp;
+		*env = tmp;
 		return (1);
 	}
 	return (0);
@@ -71,7 +71,7 @@ int			del_env(t_duo **env, char *name)
 		return (1);
 	cpy = *env;
 	tmp = NULL;
-	while (cpy && cpy->next && cpy->next->next)
+	while (cpy && cpy->next)
 	{
 		if (ft_strcmp(name, cpy->next->name) == 0)
 		{
@@ -115,7 +115,32 @@ int			bi_unsetenv(char **arg, t_duo **env)
 		ft_putendl("minishell: unsetenv: too few arguments.");
 	while(arg[i])
 	{
-		del_env(env, arg[i]);
+		if (del_env(env, arg[i]) == -1)
+		{
+			ft_putstr("minishell: unsetenv: '");
+			ft_putstr(arg[i]);
+			ft_putendl("': undefined variable");
+		}
+		i++;
+	}
+	return (0);
+}
+
+int			is_valid(char *str)
+{
+	int			i;
+
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] != '_' && str[i] != '/' && str[i] != ':' && str[i] != '-'
+				&& str[i] != ',' && ft_isalnum(str[i]) == 0)
+		{
+			ft_putstr("minishell: setenv: '");
+			ft_putstr(str);
+			ft_putendl("': not a valid identifier");
+			return (-1);
+		}
 		i++;
 	}
 	return (0);
@@ -125,33 +150,32 @@ int			bi_setenv(char **arg, t_duo **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("bi setenv");
+	int			i;
 
-	if (!arg[1])
+	i = 0;
+	while (arg[i])
+	{
+		if(is_valid(arg[i]) != 0)
+			return (-1);
+		i++;
+	}
+	if (i < 2)
 	{
 		bi_env(arg, env); // heu je dois mettre quoi la????
 		return (0);
 	}
-	if (arg[1] && arg[2] && !arg[3])
+	if (i == 2 || i == 3)
 	{
 		change_env(env, arg[1], arg[2]);
 		return (0);
 	}
-	if (arg[3])
+	if (i > 3)
 	{
 		ft_putendl("minishell: setenv: too many arguments.");
 		return (-1);
 	}
 	return (0);
 }
-
-/*
-   int			bi_cd(char **arg, t_duo **env)
-   {
-   if (DEBUG == 1)
-   ft_putendl("bi cd");
-   return (0);
-   }
-*/
 
 int			bi_exit(char **arg, t_duo **env)
 {
@@ -203,10 +227,10 @@ int			bi_env(char **arg, t_duo **env)
 	{
 		while (cpy)
 		{
-	/*		ft_putstr(cpy->name);
+			ft_putstr(cpy->name);
 			ft_putchar('=');
 			ft_putendl(cpy->value);
-	*/		cpy = cpy->next;
+			cpy = cpy->next;
 		}
 	}
 	return (0);

@@ -2,6 +2,9 @@
 # define MINISHELL_H
 
 # define DEBUG 0
+# include <stdio.h>
+#define PATH_MAX 1024 // a virer a 42 ;)
+
 # define SEP " \t\n\0"
 # define BUFF_SIZE 1024
 
@@ -11,7 +14,7 @@
 
 /* pouet */
 char		*get_env(t_duo **env, char *name);
-int			display_prompt(char **env);
+int			display_prompt(t_duo **env);
 
 /* builtin */
 int			bi_env(char **arg, t_duo **env);

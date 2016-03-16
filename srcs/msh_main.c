@@ -29,7 +29,9 @@ char		**read_n_check(char *special, char *read_buff)
 			i[2] = 0;
 		}
 		else if (read_buff[i[0]] != special[i[1]])
+		{
 			tmp[i[2]++] = read_buff[i[0]];
+		}
 	}
 	if (ft_strlen(tmp))
 		ft_lstpushback(&arg, tmp);
@@ -39,6 +41,8 @@ char		**read_n_check(char *special, char *read_buff)
 
 char		*join_exe(char *s1, char *s2)
 {
+	if (DEBUG == 1)
+		ft_putendl("join exe");
 	char		*rlt;
 	char		*tmp;
 
@@ -50,19 +54,22 @@ char		*join_exe(char *s1, char *s2)
 	return (rlt);
 }
 
-char		**fill_path()
+int			fill_path(char ***env)
 {
-	char		**path;
+	if (DEBUG == 1)
+		ft_putendl("fill path");
+	char		*tmp;
 
-	if ((path = (char **)malloc(sizeof(char *) * 6)) == NULL)
-		return (NULL);
-	path[0] = "/usr/local/bin";
-	path[1] = "/usr/bin";
-	path[2] = "/bin";
-	path[3] = "/usr/sbin";
-	path[4] = "/sbin";
-	path[5] = NULL;
-	return (path);
+	tmp = NULL;
+	if (((*env) = (char **)malloc(sizeof(char *) * 3)) == NULL)
+		return (-1);
+	if ((tmp = getcwd(tmp, PATH_MAX)) == NULL)
+		return (-1);
+	(*env)[0] = "PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+	(*env)[1] = ft_properjoin("PWD=", tmp);
+	(*env)[2] = NULL;
+	free(tmp);
+	return (0);
 }
 
 int			check_fct(char **cmd, char **env, t_duo **env_cpy)
@@ -73,9 +80,10 @@ int			check_fct(char **cmd, char **env, t_duo **env_cpy)
 	char		*tmp;
 	int			i;
 
+	(void)env;//  a virer
 	tmp = get_env(env_cpy, "PATH");
 	if(tmp == NULL)
-		 path = fill_path();
+		fill_path(&path);
 	else
 		path = read_n_check(":", tmp);
 	i = 0;
@@ -113,26 +121,21 @@ int			handle_builtin(char **cmd, t_duo **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("handle builtin");
-/*	t_duo		*env_cpy2;
-
-	env_cpy2 = *env;
-*/	/*
-	ft_putendl("\ndebut de la liste");
-	while (env_cpy2)
-	{ft_putendl(env_cpy2->name); env_cpy2 = env_cpy2->next;
-	}*/
-	char		*builtin[] = {/*"cd",*/ "setenv", "unsetenv", "env", "exit"};
+	char		*builtin[] = {"cd", "setenv", "unsetenv", "env", "exit"};
 	int			(*fct_tbl[])(char **cmd, t_duo **env)
-		//						= {bi_env};
-		= {/*&bi_cd,*/ &bi_setenv, &bi_unsetenv, &bi_env, &bi_exit};
+		= {&bi_cd, &bi_setenv, &bi_unsetenv, &bi_env, &bi_exit};
 	int			i;
 
 	i = 0;
 	while (i < 5 && ft_strcmp(cmd[0], builtin[i]) != 0)
 		i++;
 	if (i < 5 && ft_strcmp(cmd[0], builtin[i]) == 0)
+	{
 		if (fct_tbl[i](cmd, env) == -1)
 			return (-1);
+		else
+			return (1);
+	}
 	return (0);
 }
 
@@ -143,56 +146,69 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 	int			ret;
 	char		**cmd;
 	t_duo		*env_cpy2;
+	int			pouet;
 
+	pouet = 0;
 	env_cpy2 = *env_cpy;
-/*	ft_putendl("\ndebut de la liste");
-	while (env_cpy2)
-	{ft_putendl(env_cpy2->name); env_cpy2 = env_cpy2->next;
-	}*/
 	ret = 0;
 	while ((ret = read(1, read_buff, BUFF_SIZE)) > 0)
 	{
 		cmd = read_n_check(SEP, read_buff);
-//		handle_tilde(cmd);
 /*	env_cpy2 = *env_cpy;
 	ft_putendl("\navant");
 	while (env_cpy2)
 	{ft_putendl(env_cpy2->name); env_cpy2 = env_cpy2->next;
 	}*/
-		if (handle_builtin(cmd, env_cpy) == -1)
+		pouet = handle_builtin(cmd, env_cpy);
+		if (pouet != 0)
 			break ;
-	env_cpy2 = *env_cpy;
-	ft_putendl("\napres");
-	while (env_cpy2)
-	{ft_putstr("------"); ft_putendl(env_cpy2->name); env_cpy2 = env_cpy2->next;
-	}
 		father_n_son(cmd, env, env_cpy);
 		break ;
 	}
 	return (0);
 }
 
+char		**cpy_env(char **env)
+{
+	char		**cpy;
+	int			i;
+
+	cpy = NULL;
+	i = 0;
+	if ((cpy = (char **)malloc(sizeof(char *) * tbl_len(env) + 1)))
+	while (env[i])
+	{
+		cpy[i] = env[i];
+		i++;
+	}
+	cpy[i] = NULL;
+	return (cpy);
+}
+
 int			main(int ac, char **av, char **env)
 {
 	char		*read_buff;
+	char		**cpy;
 	t_duo		*env_cpy;
-	t_duo		*env_cpy2;
-
 
 	(void)ac;
 	(void)av;
-	env_cpy = tbl_to_duo(env, '=');
-	env_cpy2 = env_cpy;
-/*	ft_putendl("\ndebut de la liste");
-	while (env_cpy2)
-	{ft_putendl(env_cpy2->name); env_cpy2 = env_cpy2->next;
-	}*/
+	cpy = cpy_env(env);
+	if (!(*env))
+		fill_path(&cpy);
+//	//a virer
+//	int i =0;printf("debut liste\n");
+//	while(cpy[i])
+//	{printf("[%s]\n", cpy[i]), i++;}
+//	printf("fin liste\n");
+//	//jusque là
+	env_cpy = tbl_to_duo(cpy, '=');
 	read_buff = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
 	while (1)
 	{
-		ft_bzero(read_buff, BUFF_SIZE);
-		display_prompt(env);
-		fct_read(read_buff, env, &env_cpy);
+		ft_bzero(read_buff, BUFF_SIZE + 1);
+		display_prompt(&env_cpy);
+		fct_read(read_buff, cpy, &env_cpy);
 	}
 	return (0);
 }
