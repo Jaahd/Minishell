@@ -12,26 +12,38 @@
 // pour ls a gerer : ~ ~+ ~- //
 // builtin : cd setenv unsetenv env exit
 
-/* pouet */
-char		*get_env(t_duo **env, char *name);
+/* first_steps */
 int			display_prompt(t_duo **env);
+char		**cpy_env(char **env);
+int			manage_tilde(t_duo **env, char **arg);
+int			fill_path(char ***env);
 
 /* builtin */
-int			bi_env(char **arg, t_duo **env);
-
-int			bi_exit(char **arg, t_duo **env);
-
-int			bi_setenv(char **arg, t_duo **env);
-
-int			bi_unsetenv(char **arg, t_duo **env);
-
-int			bi_cd(char **arg, t_duo **env);
-
 int			add_env(t_duo **env, char *name, char *value);
 int			change_env(t_duo **env, char *name, char *value);
-int			del_first(t_duo **env, char *name);
-int			del_env(t_duo **env, char *name);
 char		*get_env(t_duo **env, char *name);
+int			handle_builtin(char **cmd, t_duo **env);
 
+/* fct read */
+char		**read_n_check(char *special, char *read_buff);
+int			fct_read(char *read_buff, char **env, t_duo **env_cpy);
+
+/* father_n_son */
+int			father_n_son(char **cmd, char **env, t_duo **env_cpy);
+
+/* env */
+int			bi_env(char **arg, t_duo **env);
+
+/* exit */
+int			bi_exit(char **arg, t_duo **env);
+
+/* setenv*/
+int			bi_setenv(char **arg, t_duo **env);
+
+/* unsetenv */
+int			bi_unsetenv(char **arg, t_duo **env);
+
+/* cd */
+int			bi_cd(char **arg, t_duo **env);
 
 #endif

@@ -3,7 +3,7 @@
 #include "minishell.h"
 #include "libft.h"
 
-int			cd_usage(char **arg, char **path, char *tmp_old_pwd)
+static int		cd_usage(char **arg, char **path, char *tmp_old_pwd)
 {
 	if (DEBUG == 1)
 		ft_putendl("cd usage");
@@ -30,7 +30,7 @@ int			cd_usage(char **arg, char **path, char *tmp_old_pwd)
 	return (0);
 }
 
-int			cd_access(char **arg, char *path)
+static int		cd_access(char **arg, char *path)
 {
 	if (DEBUG == 1)
 		ft_putendl("cd access");
@@ -56,33 +56,13 @@ int			cd_access(char **arg, char *path)
 	return (0);
 }
 
-int			manage_tilde(t_duo **env, char **arg)
-{
-	if (DEBUG == 1)
-		ft_putendl("manage tilde");
-	int			i;
-	char		*tmp;
-	char		*home_path;
-
-	i = 0;
-	if ((tmp = ft_strsub(*arg, 1, ft_strlen(*arg) - 1)) == NULL)
-		return (-1);
-	if ((home_path = get_env(env, "HOME")) == NULL)
-		return (-1);
-	free(*arg);
-	if ((*arg = ft_properjoin(home_path, tmp)) == NULL)
-		return (-1);
-	return (0);
-}
-
-int			cd_home(t_duo **env, char ***arg)
+static int		cd_home(t_duo **env, char ***arg)
 {
 	if (DEBUG == 1)
 		ft_putendl("cd home");
 	char		*home;
 
 	free_tab(arg);
-	printf("toto\n");
 	if ((*arg = (char **)malloc(sizeof(char *) * 3)) == NULL)
 		return (-1);
 	if ((home = get_env(env, "HOME")) == NULL)
@@ -94,7 +74,7 @@ int			cd_home(t_duo **env, char ***arg)
 	return (0);
 }
 
-int			bi_cd(char **arg, t_duo **env)
+int				bi_cd(char **arg, t_duo **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("bi cd");
@@ -108,8 +88,6 @@ int			bi_cd(char **arg, t_duo **env)
 	tmp_old_pwd = get_env(env, "OLDPWD");
 	if (!arg[1])
 		cd_home(env, &arg);
-	if (arg[1][0] == '~')
-		manage_tilde(env, &arg[1]);
 	i = 0;
 	path = NULL;
 	i += cd_usage(arg, &path, tmp_old_pwd);

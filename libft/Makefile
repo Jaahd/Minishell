@@ -89,6 +89,7 @@ SRC = ft_memset.c \
 	  srch_value.c \
 	  srch_begining.c \
 	  duo_pushbk.c \
+	  duo_del.c \
 	  free_tab.c \
 	  lst_to_tbl.c \
 	  ft_lst_count.c \
