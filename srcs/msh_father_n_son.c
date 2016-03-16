@@ -55,10 +55,7 @@ int				father_n_son(char **cmd, char **env, t_duo **env_cpy)
 
 	father = fork();
 	if (father > 0)
-	{
-		check_signal(1); // avec ctrl_c qui ne fait rien
 		wait(&stat_loc);
-	}
 	if (father == 0)
 	{
 		check_signal(2); // avec ctrl_c qui se comporte normalement

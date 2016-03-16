@@ -67,5 +67,7 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 		father_n_son(cmd, env, env_cpy);
 		break ;
 	}
+	if (ret == 0)
+		bi_exit(NULL, env_cpy);
 	return (0);
 }

@@ -14,18 +14,11 @@ static void		fct_ctrl_c(int sig)
 	return ;
 }
 
-static void		fct_ctrl_d(int sig)
-{
-	(void)sig;
-	bi_exit(NULL, NULL);
-}
-
 int				check_signal(int loc)
 {
 	if (loc == 1)
-		signal(SIGINT, fct_m_ctrl_c(SIGINT));
+		signal(SIGINT, fct_m_ctrl_c);
 	else if (loc == 2)
-		signal(SIGINT, fct_ctrl_c(SIGINT));
-	signal(SIGQUIT, fct_ctrl_d(SIGQUIT));
+		signal(SIGINT, fct_ctrl_c);
 	return (0);
 }
