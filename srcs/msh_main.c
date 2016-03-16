@@ -24,13 +24,14 @@ int			main(int ac, char **av, char **env)
 //	printf("fin liste\n");
 //	//jusque là
 	env_cpy = tbl_to_duo(cpy, '=');
-	read_buff = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
+	read_buff = ft_strnew(BUFF_SIZE);
 	while (1)
 	{
 		ft_bzero(read_buff, BUFF_SIZE + 1);
 		check_signal(1); // avec ctrl-c ne fait rien
 		display_prompt(&env_cpy);
-		fct_read(read_buff, cpy, &env_cpy);
+		if (fct_read(read_buff, cpy, &env_cpy) < 0)
+			ft_putendl("");
 	}
 	return (0);
 }
