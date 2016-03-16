@@ -27,7 +27,7 @@ int			main(int ac, char **av, char **env)
 	read_buff = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
 	while (1)
 	{
-//		signal(); // avec ctrl-c ne fait rien
+		check_signal(1); // avec ctrl-c ne fait rien
 		ft_bzero(read_buff, BUFF_SIZE + 1);
 		display_prompt(&env_cpy);
 		fct_read(read_buff, cpy, &env_cpy);

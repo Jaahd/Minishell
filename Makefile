@@ -16,15 +16,16 @@ CFLAGS = -g -Wall -Werror -Wextra -I $(HPATH) -I $(LFTHPATH)
 LIBS = -L $(LIBPATH) -lft
 
 SRC = 	msh_main.c \
+		msh_first_steps.c \
+		msh_signal.c \
 		msh_builtin.c \
+		msh_fct_read.c \
+		msh_father_n_son.c \
 		msh_cd.c \
 		msh_env.c \
 		msh_setenv.c \
 		msh_unsetenv.c \
-		msh_exit.c \
-		msh_first_steps.c \
-		msh_fct_read.c \
-		msh_father_n_son.c
+		msh_exit.c
 
 OFILES = $(patsubst %.c, $(OPATH)/%.o, $(SRC))
 

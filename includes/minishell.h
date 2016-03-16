@@ -18,6 +18,9 @@ char		**cpy_env(char **env);
 int			manage_tilde(t_duo **env, char **arg);
 int			fill_path(char ***env);
 
+/* signal */
+int			check_signal(int loc);
+
 /* builtin */
 int			add_env(t_duo **env, char *name, char *value);
 int			change_env(t_duo **env, char *name, char *value);

@@ -56,12 +56,12 @@ int				father_n_son(char **cmd, char **env, t_duo **env_cpy)
 	father = fork();
 	if (father > 0)
 	{
-	//	signal(); // avec ctrl_c qui ne fait rien
+		check_signal(1); // avec ctrl_c qui ne fait rien
 		wait(&stat_loc);
 	}
 	if (father == 0)
 	{
-	//	signal(); // avec ctrl_c qui se comporte normalement
+		check_signal(2); // avec ctrl_c qui se comporte normalement
 		check_fct(cmd, env, env_cpy);
 		ft_putendl("Not a valide command"); //trouver un message plus mieux
 		exit(EXIT_FAILURE);
