@@ -110,9 +110,10 @@ int			father_n_son(char **cmd, char **env, t_duo **env_cpy)
 		wait(&stat_loc);
 	if (father == 0)
 	{
+	//	signal(); // avec ctrl_c qui se comporte normalement
 		check_fct(cmd, env, env_cpy);
+		ft_putendl("Not a valide command"); //trouver un message plus mieux
 		exit(EXIT_FAILURE);
-		//		ft_error(); //// TROUVER LE MESSAGE CORRESPONDANT + EXIT_FAILURE
 	}
 	return (0);
 }
@@ -206,6 +207,7 @@ int			main(int ac, char **av, char **env)
 	read_buff = (char *)malloc(sizeof(char) * (BUFF_SIZE + 1));
 	while (1)
 	{
+//		signal(); // avec ctrl-c ne fait rien
 		ft_bzero(read_buff, BUFF_SIZE + 1);
 		display_prompt(&env_cpy);
 		fct_read(read_buff, cpy, &env_cpy);
