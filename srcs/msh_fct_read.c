@@ -42,18 +42,16 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 	char			**cmd;
 	int				i;
 
-	i = 0;
-	ret = 0;
+	i = -1;
 	ret = 0;
 	while ((ret = read(0, read_buff, BUFF_SIZE)) > 0)
 	{
 		if ((cmd = read_n_check(SEP, read_buff)) == NULL || cmd[0] == NULL)
 			return (-1);
-		while (cmd[i])
+		while (cmd[++i])
 		{
 			if (cmd[i][0] == '~')
 				manage_tilde(env_cpy, &cmd[i]);
-			i++;
 		}
 		i = 0;
 		i = handle_builtin(cmd, env_cpy);
