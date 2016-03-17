@@ -8,9 +8,7 @@ int			display_prompt(t_duo **env)
 		ft_putendl("display prompt");
 	char		*name;
 	char		*path;
-	int			i;
 
-	i = 0;
 	name = get_env(env, "LOGNAME");
 	path = get_env(env, "PWD");
 	if (name)
@@ -50,11 +48,9 @@ int			manage_tilde(t_duo **env, char **arg)
 {
 	if (DEBUG == 1)
 		ft_putendl("manage tilde");
-	int			i;
 	char		*tmp;
 	char		*home_path;
 
-	i = 0;
 	tmp = ft_strsub(*arg, 1, ft_strlen(*arg));
 	if ((home_path = get_env(env, "HOME")) == NULL)
 		return (-1);
