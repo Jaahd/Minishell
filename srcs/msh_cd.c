@@ -1,7 +1,7 @@
 #include <unistd.h>
-//#include <sys/syslimits.h> // cf dans /usr/include/sys/syslimits.h ^^
 #include "minishell.h"
 #include "libft.h"
+//#include <sys/syslimits.h> // cf dans /usr/include/sys/syslimits.h ^^
 
 static int		cd_usage(char **arg, char **path, char *tmp_old_pwd)
 {
@@ -97,7 +97,7 @@ int				bi_cd(char **arg, t_duo **env)
 	if (i < 0)
 		return (-1);
 	ft_strdel(&path);
-	if ((path = getcwd(path, PATH_MAX)) == NULL) // a check ac David ....
+	if ((path = getcwd(path, MAX_PATH)) == NULL)
 		return (-1);
 	change_env(env, "OLDPWD", tmp_pwd);
 	change_env(env, "PWD", path);

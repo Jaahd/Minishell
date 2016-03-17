@@ -5,7 +5,7 @@
 // ATTENTION!!!!! : est ce qu'il faut trier par ordre alpha????
 
 // fonction qui ajoute a env la variable name avec la valeur value
-int			add_env(t_duo **env, char *name, char *value)
+int				add_env(t_duo **env, char *name, char *value)
 {
 	if (DEBUG == 1)
 		ft_putendl("add env");
@@ -21,7 +21,7 @@ int				change_env(t_duo **env, char *name, char *value)
 {
 	if (DEBUG == 1)
 		ft_putendl("change env");
-	t_duo		*cpy;
+	t_duo			*cpy;
 
 	cpy = *env;
 	while (cpy)
@@ -43,7 +43,7 @@ char			*get_env(t_duo **env, char *name)
 {
 	if (DEBUG == 1)
 		ft_putendl("get env");
-	t_duo		*cpy;
+	t_duo			*cpy;
 
 	cpy = *env;
 	while (cpy)
@@ -55,14 +55,14 @@ char			*get_env(t_duo **env, char *name)
 	return (NULL);
 }
 
-int			handle_builtin(char **cmd, t_duo **env)
+int				handle_builtin(char **cmd, t_duo **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("handle builtin");
-	char		*builtin[] = {"cd", "setenv", "unsetenv", "env", "exit"};
-	int			(*fct_tbl[])(char **cmd, t_duo **env)
-		= {&bi_cd, &bi_setenv, &bi_unsetenv, &bi_env, &bi_exit};
-	int			i;
+	static char		*builtin[] = {"cd", "setenv", "unsetenv", "env", "exit"};
+	static int		(*fct_tbl[])(char **cmd, t_duo **env) = {&bi_cd,
+						&bi_setenv, &bi_unsetenv, &bi_env, &bi_exit};
+	int				i;
 
 	i = 0;
 	while (i < 5 && ft_strcmp(cmd[0], builtin[i]) != 0)

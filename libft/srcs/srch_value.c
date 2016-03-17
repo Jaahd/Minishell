@@ -20,4 +20,3 @@ char			*srch_value(const char *str, int c)
 		return (NULL);
 	return ((char*)(str + 1));
 }
-

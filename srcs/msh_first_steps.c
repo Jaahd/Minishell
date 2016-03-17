@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "minishell.h"
 #include "libft.h"
+//#include <sys/syslimits.h> // cf dans /usr/include/sys/syslimits.h ^^
 
 static char		*get_path(t_duo *env)
 {
@@ -15,7 +16,7 @@ static char		*get_path(t_duo *env)
 	tmp = ft_strsub(path, 0, ft_strlen(home));
 	if (home && ft_strcmp(home, tmp) == 0)
 	{
-		free (tmp);
+		free(tmp);
 		tmp = ft_strsub(path, ft_strlen(home), ft_strlen(path));
 		path = ft_properjoin("~", tmp);
 	}
@@ -60,7 +61,8 @@ char			**cpy_env(char **env)
 
 	cpy = NULL;
 	i = 0;
-	if ((cpy = (char **)malloc(sizeof(char *) * tbl_len(env) + 1)))
+	if ((cpy = (char **)malloc(sizeof(char *) * tbl_len(env) + 1)) == NULL)
+		return (-1);
 	while (env[i])
 	{
 		cpy[i] = env[i];
@@ -95,7 +97,7 @@ int				fill_path(char ***env)
 	tmp = NULL;
 	if (((*env) = (char **)malloc(sizeof(char *) * 3)) == NULL)
 		return (-1);
-	if ((tmp = getcwd(tmp, PATH_MAX)) == NULL)
+	if ((tmp = getcwd(tmp, MAX_PATH)) == NULL)
 		return (-1);
 	(*env)[0] = "PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
 	(*env)[1] = ft_properjoin("PWD=", tmp);

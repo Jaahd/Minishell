@@ -14,9 +14,9 @@ int				bi_exit(char **arg, t_duo **env)
 		ft_putendl("minishell: exit : too many arguments");
 		return (-1);
 	}
-	while(arg && arg[1] && arg[1][i])
+	while (arg && arg[1] && arg[1][i])
 	{
-		if(ft_isdigit(arg[1][i]) == 0)
+		if (ft_isdigit(arg[1][i]) == 0)
 		{
 			ft_putstr("exit : ");
 			ft_putstr(arg[1]);

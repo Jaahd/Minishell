@@ -22,7 +22,7 @@ char		**lst_to_tbl(t_list *lst)
 	if ((tbl = (char **)malloc(sizeof(char *) * (ft_lst_count(lst) + 1)))
 			== NULL)
 		return (NULL);
-	while(lst != NULL)
+	while (lst != NULL)
 	{
 		if ((tbl[i] = ft_strdup(lst->content)) == NULL)
 			return (NULL);

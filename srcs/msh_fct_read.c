@@ -7,10 +7,10 @@ char		**read_n_check(char *special, char *read_buff)
 {
 	if (DEBUG == 1)
 		ft_putendl("read n check");
-	t_list		*arg;
-	char		**ret;
-	char		tmp[1024];
-	int			i[] = {-1, 0, 0};
+	t_list			*arg;
+	char			**ret;
+	char			tmp[1024];
+	static int		i[] = {-1, 0, 0};
 
 	ft_bzero(tmp, 1024);
 	arg = NULL;
@@ -38,13 +38,11 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 {
 	if (DEBUG == 1)
 		ft_putendl("read buff");
-	int			ret;
-	char		**cmd;
-	t_duo		*env_cpy2; // a virer
-	int			i;
+	int				ret;
+	char			**cmd;
+	int				i;
 
 	i = 0;
-	env_cpy2 = *env_cpy;
 	ret = 0;
 	ret = 0;
 	while ((ret = read(0, read_buff, BUFF_SIZE)) > 0)

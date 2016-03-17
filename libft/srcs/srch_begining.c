@@ -23,4 +23,3 @@ char			*srch_begining(const char *str, int c)
 	ret = ft_strsub(str, 0, i);
 	return (ret);
 }
-

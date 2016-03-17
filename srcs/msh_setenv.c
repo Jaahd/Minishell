@@ -6,7 +6,7 @@ static int		is_valid(char *str)
 	int			i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] != '_' && str[i] != '/' && str[i] != ':' && str[i] != '-'
 				&& str[i] != ',' && ft_isalnum(str[i]) == 0)
@@ -30,7 +30,7 @@ int				bi_setenv(char **arg, t_duo **env)
 	i = 0;
 	while (arg[i])
 	{
-		if(is_valid(arg[i]) != 0)
+		if (is_valid(arg[i]) != 0)
 			return (-1);
 		i++;
 	}

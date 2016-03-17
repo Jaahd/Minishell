@@ -60,7 +60,7 @@ int				bi_unsetenv(char **arg, t_duo **env)
 	i = 1;
 	if (!arg[i])
 		ft_putendl("minishell: unsetenv: too few arguments.");
-	while(arg[i])
+	while (arg[i])
 	{
 		if (del_env(env, arg[i]) == -1)
 		{

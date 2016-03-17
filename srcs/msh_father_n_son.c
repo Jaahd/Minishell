@@ -1,6 +1,6 @@
 #include <unistd.h> // fork // execve // read // close
 #include <stdlib.h> // exit // malloc // free
-#include <fcntl.h> // open 
+#include <fcntl.h> // open
 #include <stdio.h>
 #include <sys/wait.h> // wait
 #include "minishell.h"
@@ -12,7 +12,6 @@ static char		*join_exe(char *s1, char *s2)
 		ft_putendl("join exe");
 	char		*rlt;
 	char		*tmp;
-
 
 	if (s2[0] == '/' || (s2[0] == '.' && s2[1] == '/'))
 		return (s2);
@@ -32,14 +31,13 @@ static int		check_fct(char **cmd, char **env, t_duo **env_cpy)
 	char		*tmp;
 	int			i;
 
-	(void)env;//  a virer
 	tmp = get_env(env_cpy, "PATH");
-	if(tmp == NULL)
+	if (tmp == NULL)
 		fill_path(&path);
 	else
 		path = read_n_check(":", tmp);
 	i = 0;
-	while(path[i])
+	while (path[i])
 	{
 		tmp = join_exe(path[i], cmd[0]);
 		execve(tmp, cmd, env);

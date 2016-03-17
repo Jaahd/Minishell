@@ -1,6 +1,6 @@
 #include <unistd.h> // fork // execve // read // close
 #include <stdlib.h> // exit // malloc // free
-#include <fcntl.h> // open 
+#include <fcntl.h> // open
 #include <stdio.h>
 #include <sys/wait.h> // wait
 #include "minishell.h"

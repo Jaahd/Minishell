@@ -12,7 +12,7 @@ int			bi_env(char **arg, t_duo **env)
 	i = 0;
 	cpy = *env;
 	if (arg[1])
- 	{
+	{
 		ft_putstr("env :");
 		ft_putstr(arg[1]);
 		ft_putendl(": No such file or directory");
