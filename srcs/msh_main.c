@@ -31,7 +31,7 @@ int			main(int ac, char **av, char **env)
 		check_signal(1); // avec ctrl-c ne fait rien
 		display_prompt(&env_cpy);
 		if (fct_read(read_buff, cpy, &env_cpy) < 0)
-			ft_putendl("");
+			ft_putendl(""); // pr le ctrl D verifier la valeur de ret quand on fait ctrl D et gerer avec ca ;)
 	}
 	return (0);
 }
