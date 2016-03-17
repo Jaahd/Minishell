@@ -12,6 +12,8 @@
 // pour ls a gerer : ~ ~+ ~- //
 // builtin : cd setenv unsetenv env exit
 
+t_duo		*savior(t_duo *env);
+
 /* first_steps */
 int			display_prompt(t_duo **env);
 char		**cpy_env(char **env);

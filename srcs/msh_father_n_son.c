@@ -13,6 +13,9 @@ static char		*join_exe(char *s1, char *s2)
 	char		*rlt;
 	char		*tmp;
 
+
+	if (s2[0] == '/' || (s2[0] == '.' && s2[1] == '/'))
+		return (s2);
 	tmp = ft_strjoin("/", s2);
 	rlt = ft_strjoin(s1, tmp);
 /*	ft_strdel(&s1);
@@ -55,12 +58,17 @@ int				father_n_son(char **cmd, char **env, t_duo **env_cpy)
 
 	father = fork();
 	if (father > 0)
+	{
+		check_signal(3);
 		wait(&stat_loc);
+	}
 	if (father == 0)
 	{
 		check_signal(2); // avec ctrl_c qui se comporte normalement
 		check_fct(cmd, env, env_cpy);
-		ft_putendl("Not a valide command"); //trouver un message plus mieux
+		ft_putstr("minishell: ");
+		ft_putstr(cmd[0]);
+		ft_putendl(": command not found");
 		exit(EXIT_FAILURE);
 	}
 	return (0);

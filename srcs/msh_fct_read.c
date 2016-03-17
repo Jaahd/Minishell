@@ -46,6 +46,7 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 	i = 0;
 	env_cpy2 = *env_cpy;
 	ret = 0;
+	ret = 0;
 	while ((ret = read(1, read_buff, BUFF_SIZE)) > 0)
 	{
 		if ((cmd = read_n_check(SEP, read_buff)) == NULL || cmd[0] == NULL)
@@ -63,5 +64,7 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 		father_n_son(cmd, env, env_cpy);
 		break ;
 	}
+	if (ret <= 0)
+		bi_exit(NULL, env_cpy);
 	return (0);
 }
