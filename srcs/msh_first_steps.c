@@ -2,35 +2,61 @@
 #include "minishell.h"
 #include "libft.h"
 
-int			display_prompt(t_duo **env)
+static char		*get_path(t_duo *env)
+{
+	if (DEBUG == 1)
+		ft_putendl("get path");
+	char			*path;
+	char			*tmp;
+	char			*home;
+
+	home = get_env(&env, "HOME");
+	path = get_env(&env, "PWD");
+	tmp = ft_strsub(path, 0, ft_strlen(home));
+	if (home && ft_strcmp(home, tmp) == 0)
+	{
+		free (tmp);
+		tmp = ft_strsub(path, ft_strlen(home), ft_strlen(path));
+		path = ft_properjoin("~", tmp);
+	}
+	free(home);
+	free(tmp);
+	return (path);
+}
+
+int				display_prompt(t_duo *env)
 {
 	if (DEBUG == 1)
 		ft_putendl("display prompt");
-	char		*name;
-	char		*path;
+	char			*name;
+	char			*path;
 
-	name = get_env(env, "LOGNAME");
-	path = get_env(env, "PWD");
+	path = get_path(env);
+	name = get_env(&env, "LOGNAME");
 	if (name)
 	{
-		ft_putstr("\033[32;1m");
+		ft_putstr("\033[34;1m");
 		ft_putstr(name);
-		ft_putstr(": \033[0m");
+		ft_putstr("\033[0m:");
 	}
 	if (path)
 	{
-		ft_putstr("\033[34;1m");
+		ft_putstr("\033[32;1m");
 		ft_putstr(path);
-		ft_putstr(" \033[0m");
+		ft_putstr("\033[0m");
 	}
-	ft_putstr("\033[36;1m$> \033[0m");
+	if (path || name)
+		ft_putchar('\n');
+	ft_putstr("\033[36m> \033[0m");
 	return (0);
 }
 
-char		**cpy_env(char **env)
+char			**cpy_env(char **env)
 {
-	char		**cpy;
-	int			i;
+	if (DEBUG == 1)
+		ft_putendl("cpy env");
+	char			**cpy;
+	int				i;
 
 	cpy = NULL;
 	i = 0;
@@ -44,12 +70,12 @@ char		**cpy_env(char **env)
 	return (cpy);
 }
 
-int			manage_tilde(t_duo **env, char **arg)
+int				manage_tilde(t_duo **env, char **arg)
 {
 	if (DEBUG == 1)
 		ft_putendl("manage tilde");
-	char		*tmp;
-	char		*home_path;
+	char			*tmp;
+	char			*home_path;
 
 	tmp = ft_strsub(*arg, 1, ft_strlen(*arg));
 	if ((home_path = get_env(env, "HOME")) == NULL)
@@ -60,11 +86,11 @@ int			manage_tilde(t_duo **env, char **arg)
 	return (0);
 }
 
-int			fill_path(char ***env)
+int				fill_path(char ***env)
 {
 	if (DEBUG == 1)
 		ft_putendl("fill path");
-	char		*tmp;
+	char			*tmp;
 
 	tmp = NULL;
 	if (((*env) = (char **)malloc(sizeof(char *) * 3)) == NULL)

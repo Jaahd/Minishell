@@ -49,7 +49,7 @@ char			*get_env(t_duo **env, char *name)
 	while (cpy)
 	{
 		if (ft_strcmp(name, cpy->name) == 0)
-			return (cpy->value);
+			return (ft_strdup(cpy->value));
 		cpy = cpy->next;
 	}
 	return (NULL);

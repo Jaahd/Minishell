@@ -10,7 +10,7 @@ static void		fct_m_ctrl_c(int sig) // fctmt modifie : reaffiche juste le prompt
 	env = NULL;
 	ft_putendl("");
 	env = savior(env);
-	display_prompt(&env);
+	display_prompt(env);
 	return ;
 }
 
@@ -48,3 +48,5 @@ int				check_signal(int loc)
 }
 
 // SIGTSTP = ctrl Z
+// SIGINT = ctrl C
+// SIGQUIT = ctrl '\'

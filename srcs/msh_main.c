@@ -32,6 +32,7 @@ int			main(int ac, char **av, char **env)
 //	{printf("[%s]\n", cpy[i]), i++;}
 //	printf("fin liste\n");
 //	//jusque là
+//	printf("fin liste\n");
 	env_cpy = tbl_to_duo(cpy, '=');
 	savior(env_cpy);
 	read_buff = ft_strnew(BUFF_SIZE);
@@ -39,7 +40,7 @@ int			main(int ac, char **av, char **env)
 	{
 		ft_bzero(read_buff, BUFF_SIZE + 1);
 		check_signal(1); // avec ctrl-c ne fait rien
-		display_prompt(&env_cpy);
+		display_prompt(env_cpy);
 		fct_read(read_buff, cpy, &env_cpy);
 	}
 	return (0);

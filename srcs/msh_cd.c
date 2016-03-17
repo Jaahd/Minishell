@@ -30,23 +30,25 @@ static int		cd_usage(char **arg, char **path, char *tmp_old_pwd)
 	return (0);
 }
 
-static int		cd_access(char **arg, char *path)
+static int		cd_access(char **arg, char *path, t_duo *env)
 {
 	if (DEBUG == 1)
 		ft_putendl("cd access");
-	int			i;
 	char		*tmp;
+	char		*home;
 
+	home = get_env(&env, "HOME");
 	if (path == NULL && arg[1][0] != '-')
 		tmp = ft_strdup(arg[1]);
 	if (path)
 		tmp = ft_strdup(path);
-	i = 0;
 	if (chdir(tmp) == -1)
 	{
 		ft_putstr("minishell: cd: ");
 		ft_putstr(tmp);
-		if ((access(tmp, F_OK)) == -1)
+		if (home == NULL && arg[1][0] == '~')
+			ft_putendl(": No $HOME variable set");
+		else if ((access(tmp, F_OK)) == -1)
 			ft_putendl(": No such file or directory");
 		else
 			ft_putendl(": Permission denied");
@@ -91,7 +93,7 @@ int				bi_cd(char **arg, t_duo **env)
 	i = 0;
 	path = NULL;
 	i += cd_usage(arg, &path, tmp_old_pwd);
-	i += cd_access(arg, path);
+	i += cd_access(arg, path, *env);
 	if (i < 0)
 		return (-1);
 	ft_strdel(&path);
