@@ -47,7 +47,7 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 	env_cpy2 = *env_cpy;
 	ret = 0;
 	ret = 0;
-	while ((ret = read(1, read_buff, BUFF_SIZE)) > 0)
+	while ((ret = read(0, read_buff, BUFF_SIZE)) > 0)
 	{
 		if ((cmd = read_n_check(SEP, read_buff)) == NULL || cmd[0] == NULL)
 			return (-1);
