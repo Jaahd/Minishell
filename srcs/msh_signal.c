@@ -32,17 +32,20 @@ int				check_signal(int loc)
 	if (loc == 1)
 	{
 		signal(SIGQUIT, fct_true_void);
+		signal(SIGTSTP, fct_true_void);
 		signal(SIGINT, fct_m_ctrl_c);
 	}
 	else if (loc == 2)
 	{
 		signal(SIGQUIT, SIG_DFL);
+		signal(SIGTSTP, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
 	}
 	else if (loc == 3)
 	{
 		signal(SIGINT, fct_ctrl_void);
 		signal(SIGQUIT, fct_ctrl_void);
+		signal(SIGTSTP, fct_ctrl_void);
 	}
 	return (0);
 }

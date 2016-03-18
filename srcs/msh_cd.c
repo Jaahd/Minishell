@@ -12,22 +12,35 @@ static int		cd_usage(char **arg, char **path, char *tmp_old_pwd)
 		ft_putendl("cd: Too many arguments.");
 		return (-1);
 	}
-	if (arg[1][0] == '-' && arg[1][1])
+	if (arg[1] && arg[1][0] == '-' && arg[1][1])
 	{
 		ft_putstr("minishell: cd: -");
 		ft_putchar(arg[1][1]);
 		ft_putendl(": invalide option\ncd: usage: cd [dir]");
 		return (-1);
 	}
-	if (arg[1][0] == '-')
+	if (arg[1] && arg[1][0] == '-')
 	{
 		if (((*path) = ft_strdup(tmp_old_pwd)) == NULL)
 		{
-			ft_putendl("minishell: cd: OLDPWD not set");
-			return (-1);
+			ft_putendl("minishell: cd: variable $OLDPWD not set");
+			return (-2);
 		}
 	}
 	return (0);
+}
+
+static int		access_home(char **arg, char *home, char *tmp)
+{
+	ft_putstr("minishell: cd: ");
+	if (home == NULL && !arg[1])
+		ft_putendl("no $HOME variable set");
+	else if (home == NULL && arg[1] && arg[1][0] == '~')
+	{
+		ft_putstr(tmp);
+		ft_putendl(": no $HOME variable set");
+	}
+	return (-1);
 }
 
 static int		cd_access(char **arg, char *path, t_duo *env)
@@ -37,21 +50,22 @@ static int		cd_access(char **arg, char *path, t_duo *env)
 	char		*tmp;
 	char		*home;
 
+	tmp = NULL;
 	home = get_env(&env, "HOME");
-	if (path == NULL && arg[1][0] != '-')
+	if (path == NULL && arg[1] && arg[1][0] != '-')
 		tmp = ft_strdup(arg[1]);
 	if (path)
 		tmp = ft_strdup(path);
-	if (chdir(tmp) == -1)
+	if (home == NULL && (!arg[1] || (arg[1] && arg[1][0] == '~')))
+		return (access_home(arg, home, tmp));
+	if (arg[1] && chdir(tmp) == -1)
 	{
 		ft_putstr("minishell: cd: ");
 		ft_putstr(tmp);
-		if (home == NULL && arg[1][0] == '~')
-			ft_putendl(": No $HOME variable set");
-		else if ((access(tmp, F_OK)) == -1)
-			ft_putendl(": No such file or directory");
+		if ((access(tmp, F_OK)) == -1)
+			ft_putendl(": no such file or directory");
 		else
-			ft_putendl(": Permission denied");
+			ft_putendl(": permission denied");
 		return (-1);
 	}
 	ft_strdel(&tmp);
@@ -93,7 +107,8 @@ int				bi_cd(char **arg, t_duo **env)
 	i = 0;
 	path = NULL;
 	i += cd_usage(arg, &path, tmp_old_pwd);
-	i += cd_access(arg, path, *env);
+	if (i != -2)
+		i += cd_access(arg, path, *env);
 	if (i < 0)
 		return (-1);
 	ft_strdel(&path);

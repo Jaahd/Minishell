@@ -57,14 +57,19 @@ char			**cpy_env(char **env)
 	if (DEBUG == 1)
 		ft_putendl("cpy env");
 	char			**cpy;
+	char			*tmp;
 	int				i;
 
 	cpy = NULL;
+	tmp = NULL;
 	i = 0;
 	if ((cpy = (char **)malloc(sizeof(char *) * tbl_len(env) + 1)) == NULL)
 		return (NULL);
 	while (env[i])
 	{
+		tmp = ft_strsub(env[i], 0, 6);
+	//	if (ft_strcmp(tmp, "OLDPWD") == 0)
+	//		i++;
 		cpy[i] = env[i];
 		i++;
 	}
