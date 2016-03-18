@@ -17,7 +17,7 @@ char		**read_n_check(char *special, char *read_buff)
 	arg = NULL;
 	while (read_buff[++i[0]])
 	{
-		printf("*******(%c)*******\n", read_buff[i[0]]);
+		printf("*******(%c)*******\ni : (%d)\n", read_buff[i[0]], i[0]);
 		i[1] = 0;
 		while (read_buff[i[0]] != special[i[1]] && special[i[1]])
 		{
@@ -39,13 +39,13 @@ char		**read_n_check(char *special, char *read_buff)
 	}
 	if (ft_strlen(tmp))
 		ft_lstpushback(&arg, tmp);
-	t_list *temp;
+/*	t_list *temp;
 	temp = arg;
 	while(temp)
 	{
 	printf(">>>>>>>>>(%s)<<<<<<<<<<<<\n", temp->content);
 	temp =temp->next;
-	}
+	}*/
 	ret = lst_to_tbl(arg);
 	return (ret);
 }
