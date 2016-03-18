@@ -8,46 +8,29 @@ char		**read_n_check(char *special, char *read_buff)
 	if (DEBUG == 1)
 		ft_putendl("read n check");
 	t_list			*arg;
-	char			**ret;
 	char			tmp[1024];
 	static int		i[] = {-1, 0, 0};
 
-	printf("cette line : {{%s}} a diviser avec ca [[%s]]\n", read_buff, special);
 	ft_bzero(tmp, 1024);
 	arg = NULL;
+	i[0] = -1;
 	while (read_buff[++i[0]])
 	{
-		printf("*******(%c)*******\ti : (%d)\n", read_buff[i[0]], i[0]);
 		i[1] = 0;
 		while (read_buff[i[0]] != special[i[1]] && special[i[1]])
-		{
-		printf("dans le while\n");
 			i[1]++;
-		}
 		if (read_buff[i[0]] == special[i[1]] && tmp[0] != '\0')
 		{
-		printf("dans le if\n");
 			ft_lstpushback(&arg, tmp);
 			ft_bzero(tmp, 1024);
 			i[2] = 0;
 		}
 		else if (read_buff[i[0]] != special[i[1]])
-		{
-		printf("dans le else if\n");
 			tmp[i[2]++] = read_buff[i[0]];
-		}
 	}
 	if (ft_strlen(tmp))
 		ft_lstpushback(&arg, tmp);
-/*	t_list *temp;
-	temp = arg;
-	while(temp)
-	{
-	printf(">>>>>>>>>(%s)<<<<<<<<<<<<\n", temp->content);
-	temp =temp->next;
-	}*/
-	ret = lst_to_tbl(arg);
-	return (ret);
+	return (lst_to_tbl(arg));
 }
 
 int			fct_read(char *read_buff, char **env, t_duo **env_cpy)

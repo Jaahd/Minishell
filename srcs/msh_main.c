@@ -26,13 +26,6 @@ int			main(int ac, char **av, char **env)
 	cpy = cpy_env(env);
 	if (!(*env))
 		fill_path(&cpy);
-//	//a virer
-//	int i =0;printf("debut liste\n");
-//	while(cpy[i])
-//	{printf("[%s]\n", cpy[i]), i++;}
-//	printf("fin liste\n");
-//	//jusque là
-//	printf("fin liste\n");
 	env_cpy = tbl_to_duo(cpy, '=');
 	savior(env_cpy);
 	read_buff = ft_strnew(BUFF_SIZE);

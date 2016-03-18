@@ -52,7 +52,6 @@ char			*get_env(t_duo **env, char *name)
 			return (ft_strdup(cpy->value));
 		cpy = cpy->next;
 	}
-	printf("in get env\n");
 	return (NULL);
 }
 

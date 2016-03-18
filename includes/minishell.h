@@ -1,6 +1,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define DEBUG 1
+# define DEBUG 0
 # include <stdio.h>
 
 # define SEP " \t\n\0"
