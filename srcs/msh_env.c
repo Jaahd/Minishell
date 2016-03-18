@@ -7,9 +7,7 @@ int			bi_env(char **arg, t_duo **env)
 	if (DEBUG == 1)
 		ft_putendl("bi env");
 	t_duo		*cpy;
-	int			i;
 
-	i = 0;
 	cpy = *env;
 	if (arg[1])
 	{

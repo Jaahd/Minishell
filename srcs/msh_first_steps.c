@@ -62,13 +62,22 @@ char			**cpy_env(char **env)
 	cpy = NULL;
 	i = 0;
 	if ((cpy = (char **)malloc(sizeof(char *) * tbl_len(env) + 1)) == NULL)
+	{
+		printf("in cpy env");
 		return (NULL);
+	}
 	while (env[i])
 	{
 		cpy[i] = env[i];
 		i++;
 	}
 	cpy[i] = NULL;
+	i = 0;
+	while(cpy[i])
+	{
+	printf("**********[%s]***********\n", cpy[i]);
+	i++;
+	}
 	return (cpy);
 }
 
@@ -98,7 +107,10 @@ int				fill_path(char ***env)
 	if (((*env) = (char **)malloc(sizeof(char *) * 3)) == NULL)
 		return (-1);
 	if ((tmp = getcwd(tmp, MAX_PATH)) == NULL)
+	{
+		printf("-----------------trololo---------\n");
 		return (-1);
+	}
 	(*env)[0] = "PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
 	(*env)[1] = ft_properjoin("PWD=", tmp);
 	(*env)[2] = NULL;
