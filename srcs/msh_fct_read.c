@@ -33,6 +33,33 @@ char		**read_n_check(char *special, char *read_buff)
 	return (lst_to_tbl(arg));
 }
 
+int			check_home(char **cmd)
+{
+	if (DEBUG == 1)
+		ft_putendl("check home");
+	int			i;
+	int			j;
+
+	i = 0;
+	while (cmd[i])
+	{
+		j = 0;
+		while (cmd[i][j])
+		{
+			if (cmd[i][j] == '~')
+			{
+				ft_putstr("minishell: ");
+				ft_putstr(cmd[0]);
+				ft_putendl(": no $HOME variable set");
+				return (-1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 {
 	if (DEBUG == 1)
@@ -41,20 +68,18 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 	char			**cmd;
 	int				i;
 
-	i = -1;
+	i = 0;
 	ret = 0;
 	while ((ret = read(0, read_buff, BUFF_SIZE)) > 0)
 	{
 		if ((cmd = read_n_check(SEP, read_buff)) == NULL || cmd[0] == NULL)
 			return (-1);
 		while (cmd[++i])
-		{
 			if (cmd[i][0] == '~')
 				manage_tilde(env_cpy, &cmd[i]);
-		}
-		i = 0;
-		i = handle_builtin(cmd, env_cpy);
-		if (i != 0)
+		if (handle_builtin(cmd, env_cpy) != 0)
+			break ;
+		if (check_home(cmd) < 0)
 			break ;
 		father_n_son(cmd, env, env_cpy);
 		break ;
