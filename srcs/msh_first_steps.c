@@ -73,6 +73,7 @@ char			**cpy_env(char **env)
 		cpy[i] = env[i];
 		i++;
 	}
+	free(tmp);
 	cpy[i] = NULL;
 	i = 0;
 	return (cpy);
