@@ -44,6 +44,7 @@ int			check_home(char **cmd)
 	while (cmd[i])
 	{
 		j = 0;
+//		printf("**********(%s)***********\n", cmd[i]);
 		while (cmd[i][j])
 		{
 			if (cmd[i][j] == '~')
