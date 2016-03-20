@@ -57,11 +57,9 @@ char			**cpy_env(char **env)
 	if (DEBUG == 1)
 		ft_putendl("cpy env");
 	char			**cpy;
-	char			*tmp;
 	int				i;
 
 	cpy = NULL;
-	tmp = NULL;
 	i = 0;
 	if ((cpy = (char **)malloc(sizeof(char *) * tbl_len(env) + 1)) == NULL)
 		return (NULL);
