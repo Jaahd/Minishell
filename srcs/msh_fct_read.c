@@ -35,16 +35,15 @@ char		**read_n_check(char *special, char *read_buff)
 
 int			check_home(char **cmd)
 {
-	if (DEBUG == 1)
-		ft_putendl("check home");
 	int			i;
 	int			j;
 
+	if (DEBUG == 1)
+		ft_putendl("check home");
 	i = 0;
 	while (cmd[i])
 	{
 		j = 0;
-//		printf("**********(%s)***********\n", cmd[i]);
 		while (cmd[i][j])
 		{
 			if (cmd[i][j] == '~')
