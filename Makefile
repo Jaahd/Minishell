@@ -12,7 +12,7 @@ HPATH =		$(ROOT)/includes
 LIBPATH =	$(ROOT)/libft
 LFTHPATH =	$(LIBPATH)/includes
 
-CFLAGS = -Wall -Werror -Wextra -I $(HPATH) -I $(LFTHPATH)
+CFLAGS = -g -Wall -Werror -Wextra -I $(HPATH) -I $(LFTHPATH)
 LIBS = -L $(LIBPATH) -lft
 
 SRC = 	msh_main.c \
