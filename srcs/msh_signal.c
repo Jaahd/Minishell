@@ -51,5 +51,6 @@ int				check_signal(int loc)
 }
 
 // SIGTSTP = ctrl Z
+// SIGCONT = "fg"
 // SIGINT = ctrl C
 // SIGQUIT = ctrl '\'
