@@ -87,6 +87,7 @@ static int		cd_home(t_duo **env, char ***arg)
 			|| ((*arg)[1] = ft_strdup(home)) == NULL)
 		return (-1);
 	(*arg)[2] = NULL;
+	free(home);
 	return (0);
 }
 
@@ -109,12 +110,13 @@ int				bi_cd(char **arg, t_duo **env)
 	i += cd_usage(arg, &path, tmp_old_pwd);
 	if (i != -2)
 		i += cd_access(arg, path, *env);
-	if (i < 0)
-		return (-1);
 	ft_strdel(&path);
-	if ((path = getcwd(path, MAX_PATH)) == NULL)
+	if (i < 0 || (path = getcwd(path, MAX_PATH)) == NULL)
 		return (-1);
 	change_env(env, "OLDPWD", tmp_pwd);
 	change_env(env, "PWD", path);
+	ft_strdel(&path);
+	ft_strdel(&tmp_pwd);
+	ft_strdel(&tmp_old_pwd);
 	return (0);
 }

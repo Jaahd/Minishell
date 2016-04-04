@@ -35,6 +35,7 @@ int				change_env(t_duo **env, char *name, char *value)
 		cpy = cpy->next;
 	}
 	add_env(env, name, value);
+	free(cpy);
 	return (0);
 }
 
@@ -52,6 +53,7 @@ char			*get_env(t_duo **env, char *name)
 			return (ft_strdup(cpy->value));
 		cpy = cpy->next;
 	}
+	free(cpy);
 	return (NULL);
 }
 
