@@ -17,8 +17,6 @@
 // fonction qui suprime de env la variable name
 static int		del_first(t_duo **env, char *name)
 {
-	if (DEBUG == 1)
-		ft_putendl("del first");
 	t_duo		*cpy;
 	t_duo		*tmp;
 
@@ -38,8 +36,6 @@ static int		del_first(t_duo **env, char *name)
 
 static int		del_env(t_duo **env, char *name)
 {
-	if (DEBUG == 1)
-		ft_putendl("del env");
 	t_duo		*cpy;
 	t_duo		*tmp;
 
@@ -65,8 +61,6 @@ static int		del_env(t_duo **env, char *name)
 
 int				bi_unsetenv(char **arg, t_duo **env)
 {
-	if (DEBUG == 1)
-		ft_putendl("bi unsetenv");
 	int			i;
 
 	i = 1;

@@ -19,8 +19,6 @@
 // fonction qui ajoute a env la variable name avec la valeur value
 int				add_env(t_duo **env, char *name, char *value)
 {
-	if (DEBUG == 1)
-		ft_putendl("add env");
 	if (name == NULL)
 		return (-1);
 	else
@@ -31,8 +29,6 @@ int				add_env(t_duo **env, char *name, char *value)
 // fonction qui modifie ou ajoute la variable name avec la valeur value
 int				change_env(t_duo **env, char *name, char *value)
 {
-	if (DEBUG == 1)
-		ft_putendl("change env");
 	t_duo			*cpy;
 
 	cpy = *env;
@@ -54,8 +50,6 @@ int				change_env(t_duo **env, char *name, char *value)
 // fonction qui renvoie la valeur "value" de la variable "name" de env
 char			*get_env(t_duo **env, char *name)
 {
-	if (DEBUG == 1)
-		ft_putendl("get env");
 	t_duo			*cpy;
 
 	cpy = *env;
@@ -71,8 +65,6 @@ char			*get_env(t_duo **env, char *name)
 
 int				handle_builtin(char **cmd, t_duo **env)
 {
-	if (DEBUG == 1)
-		ft_putendl("handle builtin");
 	static char		*builtin[] = {"cd", "setenv", "unsetenv", "env", "exit"};
 	static int		(*fct_tbl[])(char **cmd, t_duo **env) = {&bi_cd,
 						&bi_setenv, &bi_unsetenv, &bi_env, &bi_exit};

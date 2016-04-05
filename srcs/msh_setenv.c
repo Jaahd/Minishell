@@ -35,8 +35,6 @@ static int		is_valid(char *str)
 
 int				bi_setenv(char **arg, t_duo **env)
 {
-	if (DEBUG == 1)
-		ft_putendl("bi setenv");
 	int			i;
 
 	i = 0;

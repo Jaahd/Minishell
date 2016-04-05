@@ -17,8 +17,6 @@
 
 static int		cd_usage(char **arg, char **path, char *tmp_old_pwd)
 {
-	if (DEBUG == 1)
-		ft_putendl("cd usage");
 	if (arg[1] && arg[2])
 	{
 		ft_putendl("minishell: cd: too many arguments.");
@@ -57,8 +55,6 @@ static int		access_home(char **arg, char *home, char *tmp)
 
 static int		cd_access(char **arg, char *path, t_duo *env)
 {
-	if (DEBUG == 1)
-		ft_putendl("cd access");
 	char		*tmp;
 	char		*home;
 
@@ -87,8 +83,6 @@ static int		cd_access(char **arg, char *path, t_duo *env)
 
 static int		cd_home(t_duo **env)
 {
-	if (DEBUG == 1)
-		ft_putendl("cd home");
 	char		*home;
 
 	if ((home = get_env(env, "HOME")) == NULL)
@@ -104,8 +98,6 @@ static int		cd_home(t_duo **env)
 
 int				bi_cd(char **arg, t_duo **env)
 {
-	if (DEBUG == 1)
-		ft_putendl("bi cd");
 	char		*tmp_pwd;
 	char		*tmp_old_pwd;
 	char		*path;

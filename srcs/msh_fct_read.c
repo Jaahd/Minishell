@@ -17,8 +17,6 @@
 
 char		**read_n_check(char *special, char *read_buff)
 {
-	if (DEBUG == 1)
-		ft_putendl("read n check");
 	t_list			*arg;
 	char			tmp[1024];
 	char			**tbl;
@@ -52,8 +50,6 @@ int			check_home(char **cmd)
 {
 	int			i;
 
-	if (DEBUG == 1)
-		ft_putendl("check home");
 	i = 0;
 	while (cmd[i])
 	{
@@ -71,8 +67,6 @@ int			check_home(char **cmd)
 
 int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 {
-	if (DEBUG == 1)
-		ft_putendl("read buff");
 	int				ret;
 	char			**cmd;
 	int				i;

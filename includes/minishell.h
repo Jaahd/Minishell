@@ -12,8 +12,6 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# define DEBUG 1
-# include <stdio.h>
 
 # define SEP " \t\n\0"
 # define BUFF_SIZE 1024

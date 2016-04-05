@@ -16,8 +16,6 @@
 
 int				bi_exit(char **arg, t_duo **env)
 {
-	if (DEBUG == 1)
-		ft_putendl("bi exit");
 	int			i;
 
 	i = 0;

@@ -16,8 +16,6 @@
 // ajouter la gestion de env -i (donc avec qqch derriere env ^^), enventuellement ac -u...
 int			bi_env(char **arg, t_duo **env)
 {
-	if (DEBUG == 1)
-		ft_putendl("bi env");
 	t_duo		*cpy;
 
 	cpy = *env;
