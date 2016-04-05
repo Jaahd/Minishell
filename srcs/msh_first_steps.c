@@ -66,7 +66,7 @@ char			**cpy_env(char **env)
 	cpy = NULL;
 	tmp = NULL;
 	i = 0;
-	if ((cpy = (char **)malloc(sizeof(char *) * tbl_len(env) + 1)) == NULL)
+	if ((cpy = (char **)malloc(sizeof(char *) * (tbl_len(env) + 1))) == NULL)
 		return (NULL);
 	while (env[i])
 	{

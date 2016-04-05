@@ -24,9 +24,12 @@ int			main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	cpy = cpy_env(env);
+	printf("pouet\n");
 	if (!(*env))
 		fill_path(&cpy);
+	printf("trololo\n");
 	env_cpy = tbl_to_duo(cpy, '=');
+	printf("pouettoto\n");
 	savior(env_cpy);
 	read_buff = ft_strnew(BUFF_SIZE);
 	while (1)

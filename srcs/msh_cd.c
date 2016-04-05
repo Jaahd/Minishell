@@ -7,7 +7,7 @@ static int		cd_usage(char **arg, char **path, char *tmp_old_pwd)
 {
 	if (DEBUG == 1)
 		ft_putendl("cd usage");
-	if (arg[2])
+	if (arg[1] && arg[2])
 	{
 		ft_putendl("minishell: cd: too many arguments.");
 		return (-1);
