@@ -25,7 +25,7 @@ int				add_env(t_duo **env, char *name, char *value)
 
 int				change_env(t_duo **env, char *name, char *value)
 {
-	t_duo			*cpy;
+	t_duo				*cpy;
 
 	cpy = *env;
 	while (cpy)
@@ -45,7 +45,7 @@ int				change_env(t_duo **env, char *name, char *value)
 
 char			*get_env(t_duo **env, char *name)
 {
-	t_duo			*cpy;
+	t_duo				*cpy;
 
 	cpy = *env;
 	while (cpy)
@@ -60,15 +60,15 @@ char			*get_env(t_duo **env, char *name)
 
 int				handle_builtin(char **cmd, t_duo **env)
 {
-	static char		*builtin[] = {"cd", "setenv", "unsetenv", "env", "exit"};
-	static int		(*fct_tbl[])(char **cmd, t_duo **env) = {&bi_cd,
-						&bi_setenv, &bi_unsetenv, &bi_env, &bi_exit};
-	int				i;
+	static const char	*bi[] = {"cd", "setenv", "unsetenv", "env", "exit"};
+	static int			(*fct_tbl[])(char **cmd, t_duo **env) = {&bi_cd,
+							&bi_setenv, &bi_unsetenv, &bi_env, &bi_exit};
+	int					i;
 
 	i = 0;
-	while (i < 5 && ft_strcmp(cmd[0], builtin[i]) != 0)
+	while (i < 5 && ft_strcmp(cmd[0], bi[i]) != 0)
 		i++;
-	if (i < 5 && ft_strcmp(cmd[0], builtin[i]) == 0)
+	if (i < 5 && ft_strcmp(cmd[0], bi[i]) == 0)
 	{
 		if (fct_tbl[i](cmd, env) == -1)
 			return (-1);
