@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h> // fork // execve // read // close
-#include <stdlib.h> // exit // malloc // free
-#include <fcntl.h> // open
+#include <unistd.h>
+#include <stdlib.h>
+#include <fcntl.h>
 #include <stdio.h>
-#include <sys/wait.h> // wait
+#include <sys/wait.h>
 #include "minishell.h"
 #include "libft.h"
 
@@ -36,18 +36,15 @@ int			main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	cpy = cpy_env(env);
-	printf("pouet\n");
 	if (!(*env))
 		fill_path(&cpy);
-	printf("trololo\n");
 	env_cpy = tbl_to_duo(cpy, '=');
-	printf("pouettoto\n");
 	savior(env_cpy);
 	read_buff = ft_strnew(BUFF_SIZE);
 	while (1)
 	{
 		ft_bzero(read_buff, BUFF_SIZE + 1);
-		check_signal(1); // avec ctrl-c ne fait rien
+		check_signal(1);
 		display_prompt(env_cpy);
 		fct_read(read_buff, cpy, &env_cpy);
 	}

@@ -14,7 +14,7 @@
 #include "minishell.h"
 #include "libft.h"
 
-static void		fct_m_ctrl_c(int sig) // fctmt modifie : reaffiche juste le prompt
+static void		fct_m_ctrl_c(int sig)
 {
 	t_duo			*env;
 
@@ -26,14 +26,14 @@ static void		fct_m_ctrl_c(int sig) // fctmt modifie : reaffiche juste le prompt
 	return ;
 }
 
-static void		fct_ctrl_void(int sig) // fctmt normal : stop l'execution du prg
+static void		fct_ctrl_void(int sig)
 {
 	(void)sig;
 	ft_putendl("");
 	return ;
 }
 
-static void		fct_true_void(int sig) // fctmt normal : stop l'execution du prg
+static void		fct_true_void(int sig)
 {
 	(void)sig;
 	return ;
@@ -61,8 +61,3 @@ int				check_signal(int loc)
 	}
 	return (0);
 }
-
-// SIGTSTP = ctrl Z
-// SIGCONT = "fg"
-// SIGINT = ctrl C
-// SIGQUIT = ctrl '\'

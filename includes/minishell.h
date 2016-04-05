@@ -19,9 +19,6 @@
 
 # include "libft.h"
 
-// pour ls a gerer : ~ ~+ ~- //
-// builtin : cd setenv unsetenv env exit
-
 t_duo		*savior(t_duo *env);
 
 int			display_prompt(t_duo *env);

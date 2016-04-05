@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h> // fork // execve // read // close
-#include <stdlib.h> // exit // malloc // free
+#include <unistd.h>
+#include <stdlib.h>
 #include "minishell.h"
 #include "libft.h"
 

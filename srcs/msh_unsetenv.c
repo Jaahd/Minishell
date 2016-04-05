@@ -14,7 +14,6 @@
 #include "minishell.h"
 #include "libft.h"
 
-// fonction qui suprime de env la variable name
 static int		del_first(t_duo **env, char *name)
 {
 	t_duo		*cpy;

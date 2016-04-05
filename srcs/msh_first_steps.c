@@ -13,7 +13,6 @@
 #include <stdio.h>
 #include "minishell.h"
 #include "libft.h"
-//#include <sys/syslimits.h> // cf dans /usr/include/sys/syslimits.h ^^
 
 static char		*get_path(t_duo *env)
 {

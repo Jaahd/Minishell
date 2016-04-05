@@ -13,7 +13,6 @@
 #include "minishell.h"
 #include "libft.h"
 
-// ajouter la gestion de env -i (donc avec qqch derriere env ^^), enventuellement ac -u...
 int			bi_env(char **arg, t_duo **env)
 {
 	t_duo		*cpy;

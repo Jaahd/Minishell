@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h> // fork // execve // read // close
-#include <stdlib.h> // exit // malloc // free
-#include <fcntl.h> // open
+#include <unistd.h>
+#include <stdlib.h>
+#include <fcntl.h>
 #include <stdio.h>
-#include <sys/wait.h> // wait
+#include <sys/wait.h>
 #include "minishell.h"
 #include "libft.h"
 
@@ -27,8 +27,6 @@ static char		*join_exe(char *s1, char *s2)
 		return (s2);
 	tmp = ft_strjoin("/", s2);
 	rlt = ft_strjoin(s1, tmp);
-/*	ft_strdel(&s1);
-	ft_strdel(&s2); */
 	ft_strdel(&tmp);
 	return (rlt);
 }
@@ -68,7 +66,7 @@ int				father_n_son(char **cmd, char **env, t_duo **env_cpy)
 	}
 	if (father == 0)
 	{
-		check_signal(2); // avec ctrl_c qui se comporte normalement
+		check_signal(2);
 		check_fct(cmd, env, env_cpy);
 		ft_putstr("minishell: ");
 		ft_putstr(cmd[0]);

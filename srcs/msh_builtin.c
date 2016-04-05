@@ -14,9 +14,6 @@
 #include "libft.h"
 #include <stdio.h>
 
-// ATTENTION!!!!! : est ce qu'il faut trier par ordre alpha????
-
-// fonction qui ajoute a env la variable name avec la valeur value
 int				add_env(t_duo **env, char *name, char *value)
 {
 	if (name == NULL)
@@ -26,7 +23,6 @@ int				add_env(t_duo **env, char *name, char *value)
 	return (0);
 }
 
-// fonction qui modifie ou ajoute la variable name avec la valeur value
 int				change_env(t_duo **env, char *name, char *value)
 {
 	t_duo			*cpy;
@@ -47,7 +43,6 @@ int				change_env(t_duo **env, char *name, char *value)
 	return (0);
 }
 
-// fonction qui renvoie la valeur "value" de la variable "name" de env
 char			*get_env(t_duo **env, char *name)
 {
 	t_duo			*cpy;
