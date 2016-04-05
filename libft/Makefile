@@ -106,7 +106,7 @@ SRC = ft_memset.c \
 
 OBJ = $(patsubst %.c, $(OPATH)/%.o, $(SRC))
 
-CFLAGS = -g -Wall -Wextra -Werror -I $(HPATH)
+CFLAGS = -Wall -Wextra -Werror -I $(HPATH)
 
 ROOT =		$(shell /bin/pwd)
 OPATH =		$(ROOT)/objs
