@@ -15,15 +15,6 @@
 #include "minishell.h"
 #include "libft.h"
 
-//		if (read_buff[i] == special[j] && tmp[0] != '\0')
-//		{
-//			ft_lstpushback(&arg, tmp);
-//			ft_bzero(tmp, 1024);
-//			k = 0;
-//		}
-//		else if (read_buff[i] != special[j])
-//			tmp[k++] = read_buff[i];
-
 static int		create_list(char cheat[], char (*tmp)[], int *k, t_list **arg)
 {
 	if (cheat[0] == cheat[1] && (*tmp)[0] != '\0')
@@ -36,6 +27,7 @@ static int		create_list(char cheat[], char (*tmp)[], int *k, t_list **arg)
 		(*tmp)[(*k)++] = cheat[0];
 	return (0);
 }
+
 char			**read_n_check(char *special, char *read_buff)
 {
 	t_list			*arg;
