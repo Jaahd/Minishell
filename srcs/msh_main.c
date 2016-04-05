@@ -36,5 +36,8 @@ int			main(int ac, char **av, char **env)
 		display_prompt(env_cpy);
 		fct_read(read_buff, cpy, &env_cpy);
 	}
+	free_duo(&env_cpy);
+	free_tab(&cpy);
+	free(read_buff);
 	return (0);
 }

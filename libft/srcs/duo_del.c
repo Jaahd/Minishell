@@ -17,7 +17,7 @@ int			duo_del(t_duo **lst)
 	t_duo		*tmp;
 
 	tmp = NULL;
-	while ((*lst)->next)
+	while (lst && *lst && (*lst)->next)
 	{
 		tmp = (*lst)->next;
 		free((*lst)->name);
@@ -25,5 +25,8 @@ int			duo_del(t_duo **lst)
 		free(*lst);
 		*lst = tmp;
 	}
+	free((*lst)->name);
+	free((*lst)->value);
+	free(*lst);
 	return (0);
 }

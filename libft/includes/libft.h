@@ -101,6 +101,8 @@ char				*srch_begining(const char *str, int c);
 char				*srch_value(const char *str, int c);
 int					duo_pushback(t_duo **lst, char *name, char *value);
 int					duo_del(t_duo **lst);
+int					free_duo(t_duo **lst);
+int					free_lst(t_list **lst);
 int					free_tab(char ***tab);
 char				**lst_to_tbl(t_list *lst);
 int					ft_lst_count(t_list *lst);

@@ -9,14 +9,14 @@ static int		cd_usage(char **arg, char **path, char *tmp_old_pwd)
 		ft_putendl("cd usage");
 	if (arg[2])
 	{
-		ft_putendl("cd: Too many arguments.");
+		ft_putendl("minishell: cd: too many arguments.");
 		return (-1);
 	}
 	if (arg[1] && arg[1][0] == '-' && arg[1][1])
 	{
 		ft_putstr("minishell: cd: -");
 		ft_putchar(arg[1][1]);
-		ft_putendl(": invalide option\ncd: usage: cd [dir]");
+		ft_putendl(": invalid option\ncd: usage: cd [dir]");
 		return (-1);
 	}
 	if (arg[1] && arg[1][0] == '-')
@@ -68,25 +68,24 @@ static int		cd_access(char **arg, char *path, t_duo *env)
 			ft_putendl(": permission denied");
 		return (-1);
 	}
+	free(home);
 	ft_strdel(&tmp);
 	return (0);
 }
 
-static int		cd_home(t_duo **env, char ***arg)
+static int		cd_home(t_duo **env)
 {
 	if (DEBUG == 1)
 		ft_putendl("cd home");
 	char		*home;
 
-	free_tab(arg);
-	if ((*arg = (char **)malloc(sizeof(char *) * 3)) == NULL)
-		return (-1);
 	if ((home = get_env(env, "HOME")) == NULL)
+	{
+		ft_putendl("minishell: cd: no $HOME variable set");
 		return (-1);
-	if (((*arg)[0] = ft_strdup("cd")) == NULL
-			|| ((*arg)[1] = ft_strdup(home)) == NULL)
+	}
+	if (chdir(home) == -1)
 		return (-1);
-	(*arg)[2] = NULL;
 	free(home);
 	return (0);
 }
@@ -104,11 +103,11 @@ int				bi_cd(char **arg, t_duo **env)
 		return (-1);
 	tmp_old_pwd = get_env(env, "OLDPWD");
 	if (!arg[1])
-		cd_home(env, &arg);
+		cd_home(env);
 	i = 0;
 	path = NULL;
 	i += cd_usage(arg, &path, tmp_old_pwd);
-	if (i != -2)
+	if (arg[1] && i != -2)
 		i += cd_access(arg, path, *env);
 	ft_strdel(&path);
 	if (i < 0 || (path = getcwd(path, MAX_PATH)) == NULL)

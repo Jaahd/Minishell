@@ -9,6 +9,7 @@ char		**read_n_check(char *special, char *read_buff)
 		ft_putendl("read n check");
 	t_list			*arg;
 	char			tmp[1024];
+	char			**tbl;
 	static int		i[] = {-1, 0, 0};
 
 	ft_bzero(tmp, 1024);
@@ -30,30 +31,26 @@ char		**read_n_check(char *special, char *read_buff)
 	}
 	if (ft_strlen(tmp))
 		ft_lstpushback(&arg, tmp);
-	return (lst_to_tbl(arg));
+	tbl = lst_to_tbl(arg);
+	free_lst(&arg);
+	return (tbl);
 }
 
 int			check_home(char **cmd)
 {
 	int			i;
-	int			j;
 
 	if (DEBUG == 1)
 		ft_putendl("check home");
 	i = 0;
 	while (cmd[i])
 	{
-		j = 0;
-		while (cmd[i][j])
+		if (cmd[i][0] == '~')
 		{
-			if (cmd[i][j] == '~')
-			{
-				ft_putstr("minishell: ");
-				ft_putstr(cmd[0]);
-				ft_putendl(": no $HOME variable set");
-				return (-1);
-			}
-			j++;
+			ft_putstr("minishell: ");
+			ft_putstr(cmd[0]);
+			ft_putendl(": no $HOME variable set");
+			return (-1);
 		}
 		i++;
 	}
@@ -86,5 +83,6 @@ int			fct_read(char *read_buff, char **env, t_duo **env_cpy)
 	}
 	if (ret <= 0)
 		bi_exit(NULL, env_cpy);
+	free_tab(&cmd);
 	return (0);
 }

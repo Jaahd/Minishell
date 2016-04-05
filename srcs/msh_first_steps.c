@@ -18,6 +18,7 @@ static char		*get_path(t_duo *env)
 	{
 		free(tmp);
 		tmp = ft_strsub(path, ft_strlen(home), ft_strlen(path));
+		free(path);
 		path = ft_properjoin("~", tmp);
 	}
 	free(home);
@@ -49,6 +50,8 @@ int				display_prompt(t_duo *env)
 	if (path || name)
 		ft_putchar('\n');
 	ft_putstr("\033[36m> \033[0m");
+	free(name);
+	free(path);
 	return (0);
 }
 
@@ -68,12 +71,10 @@ char			**cpy_env(char **env)
 	while (env[i])
 	{
 		tmp = ft_strsub(env[i], 0, 6);
-	//	if (ft_strcmp(tmp, "OLDPWD") == 0)
-	//		i++;
 		cpy[i] = env[i];
+		free(tmp);
 		i++;
 	}
-	free(tmp);
 	cpy[i] = NULL;
 	i = 0;
 	return (cpy);
@@ -92,6 +93,8 @@ int				manage_tilde(t_duo **env, char **arg)
 	free(*arg);
 	if ((*arg = ft_properjoin(home_path, tmp)) == NULL)
 		return (-1);
+	free(home_path);
+	free(tmp);
 	return (0);
 }
 
