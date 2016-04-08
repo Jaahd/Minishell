@@ -34,7 +34,7 @@ OFILES = $(patsubst %.c, $(OPATH)/%.o, $(SRC))
 all: $(OPATH) $(NAME)
 
 $(NAME): $(OFILES)
-	@$(MAKE) -C $(LIBPATH)
+	@$(MAKE) -C $(LIBPATH) -j 8
 	@echo "Creating OBJ files"
 	@echo "Building $@"
 	@$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
@@ -65,6 +65,7 @@ re: fclean all
 # $@ = rule's name
 # $^ = all the rule dependecies
 # $< = only the first dependence
+# '-j 8' => complile la lib en multi threading ^^
 
 # Color for c
 #   reset	"\033[0m"
